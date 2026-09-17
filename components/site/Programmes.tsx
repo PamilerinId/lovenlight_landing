@@ -4,6 +4,15 @@ import { cn } from "@/lib/utils";
 import { Eyebrow } from "./primitives";
 import { ProgrammeIcon } from "./ProgrammeIcon";
 
+/**
+ * "What we do" — a minimal list rather than a grid of cards.
+ *
+ * The programmes have names only (no descriptions exist in the client brief),
+ * so there is nothing to put behind a per-item accordion. Instead the whole
+ * list is a native <details> disclosure: collapsed on small screens to keep
+ * the page short, and forced open from the nav breakpoint up by CSS. Using
+ * <details> keeps this working with no client-side JavaScript.
+ */
 export function Programmes() {
   return (
     <section id="programmes" aria-labelledby="programmes-heading" className="px-page py-[110px]">
@@ -14,38 +23,57 @@ export function Programmes() {
       >
         {programmes.heading}
       </h2>
-      <ul className="mt-16 grid grid-cols-[repeat(auto-fit,minmax(min(100%,300px),1fr))] gap-5">
-        {programmes.items.map((item) => (
-          <li key={item.n}>
-            <article
-              className={cn(
-                "flex min-h-[240px] flex-col justify-between gap-7 rounded-card p-8",
-                item.strong ? "glass-strong text-white" : "glass text-green"
-              )}
-            >
-              <div className="flex items-start justify-between">
-                <ProgrammeIcon name={item.icon} />
-                <span
+
+      <details className="disclosure mt-10">
+        <summary className="flex items-center justify-between gap-3 border-t border-hairline py-4 text-[15px] font-semibold text-green">
+          <span className="disclosure-show">Show the six programmes</span>
+          <span className="disclosure-hide">Hide the six programmes</span>
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+            className="disclosure-chevron shrink-0"
+          >
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </summary>
+
+        {/* Plain wrapper: the desktop rule that forces the disclosure open
+            sets display on the direct child, so the grid lives one level in
+            where it cannot be overridden. */}
+        <div className="disclosure-content">
+          <ul className="grid grid-cols-1 border-t border-hairline nav:grid-cols-2 nav:gap-x-16">
+            {programmes.items.map((item) => (
+              <li
+                key={item.n}
+                className="flex items-center gap-4 border-b border-hairline py-5"
+              >
+                <ProgrammeIcon
+                  name={item.icon}
+                  className="size-6 shrink-0 text-green"
+                />
+                <h3
                   className={cn(
-                    "text-[13px] font-semibold",
-                    item.strong ? "text-white/80" : "text-green"
+                    "flex-1 text-xl font-medium tracking-[-0.02em]",
+                    item.strong ? "text-green" : "text-ink"
                   )}
                 >
+                  {item.title}
+                </h3>
+                <span className="text-[13px] font-semibold text-green tabular-nums">
                   {item.n}
                 </span>
-              </div>
-              <h3
-                className={cn(
-                  "text-2xl font-medium tracking-[-0.02em]",
-                  item.strong ? "text-white" : "text-ink"
-                )}
-              >
-                {item.title}
-              </h3>
-            </article>
-          </li>
-        ))}
-      </ul>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </details>
     </section>
   );
 }

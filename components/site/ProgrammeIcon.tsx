@@ -64,8 +64,8 @@ export function ProgrammeIcon({
 }) {
   return (
     <svg
-      width="32"
-      height="32"
+      width="24"
+      height="24"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
