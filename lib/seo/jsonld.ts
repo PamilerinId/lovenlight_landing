@@ -1,4 +1,4 @@
-import { links, org, programmes, sdgs } from "@/content/site";
+import { leadership, links, org, programmes, sdgs } from "@/content/site";
 import { OG_IMAGE_PATH, SITE_DESCRIPTION, SITE_TITLE, SITE_URL } from "./config";
 
 /**
@@ -31,6 +31,24 @@ export function buildJsonLd() {
         telephone: org.tel,
         areaServed: org.countries.map((name) => ({ "@type": "Country", name })),
         sameAs: links.socials.map((s) => s.href),
+        founder: {
+          "@type": "Person",
+          name: leadership.founder.name,
+          jobTitle: leadership.founder.role,
+          image: `${SITE_URL}/images/volunteer-pulpit.jpg`,
+          worksFor: { "@id": orgId },
+        },
+        // schema.org has no "patron" property; an OrganizationRole carries
+        // the title without inventing a closer fit.
+        member: {
+          "@type": "OrganizationRole",
+          roleName: leadership.grandPatron.role,
+          member: {
+            "@type": "Person",
+            name: leadership.grandPatron.name,
+            image: `${SITE_URL}/images/volunteer-outdoor.jpg`,
+          },
+        },
         knowsAbout: [
           ...programmes.items.map((p) => p.title),
           // Linked to the UN's own page for each goal so the entity is

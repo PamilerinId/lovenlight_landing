@@ -9,6 +9,22 @@
 
 export type Photo = { src: string; alt: string };
 
+/** A named person shown in a photo; rendered as a caption on the tile. */
+export type Person = { name: string; role: string };
+
+export type PersonPhoto = Photo & { person?: Person };
+
+export const leadership = {
+  founder: {
+    name: "Oluninyo Ademola-Idowu Esq",
+    role: "Founder / Executive Director",
+  },
+  grandPatron: {
+    name: "Mr Yanju Adegbite",
+    role: "Grand Patron",
+  },
+} as const satisfies Record<string, Person>;
+
 export const org = {
   legalName: "The Love and Light Community and Humanitarian Foundation",
   name: "Love & Light Foundation",
@@ -201,7 +217,10 @@ export const involved = {
     body: "Your time, skills, and passion can create lasting change. Whether you're a student, young professional, creative, entrepreneur, or simply someone who wants to make a difference, there's a place for you at Love & Light Foundation. Join our community of volunteers and help us deliver outreaches, empower communities, organize impactful events, and bring hope to those who need it most.",
     cta: "Become a Volunteer",
   },
-  /** Photo mosaic beside the Volunteer panel: volunteers and speakers at work. */
+  /**
+   * Photo mosaic beside the Volunteer panel. Tiles with a `person` carry a
+   * caption naming them; this doubles as the site's leadership presence.
+   */
   gallery: [
     {
       src: "/images/volunteer-school-hall.jpg",
@@ -209,7 +228,8 @@ export const involved = {
     },
     {
       src: "/images/volunteer-pulpit.jpg",
-      alt: "A volunteer in a Love & Light Foundation T-shirt speaking into a microphone at a community event",
+      alt: `${leadership.founder.name}, ${leadership.founder.role} of Love & Light Foundation, speaking into a microphone in a foundation T-shirt`,
+      person: leadership.founder,
     },
     {
       src: "/images/volunteer-rebirth.jpg",
@@ -217,9 +237,10 @@ export const involved = {
     },
     {
       src: "/images/volunteer-outdoor.jpg",
-      alt: "A speaker with a microphone addressing an outdoor community gathering",
+      alt: `${leadership.grandPatron.name}, ${leadership.grandPatron.role} of Love & Light Foundation, speaking with a microphone at an outdoor gathering`,
+      person: leadership.grandPatron,
     },
-  ] satisfies ReadonlyArray<Photo>,
+  ] satisfies ReadonlyArray<PersonPhoto>,
   friends: {
     label: "Friends of Love & Light",
     badge: "From ₦2,000 / month",
