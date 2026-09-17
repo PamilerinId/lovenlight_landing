@@ -23,16 +23,23 @@ export function Story() {
       <ul className="mt-11 flex flex-wrap gap-[14px]" aria-label="UN Sustainable Development Goals we work towards">
         {sdgs.map((goal) => (
           <li key={goal.id}>
-            {/* Animated WebP: served as-is, so the optimiser is bypassed. */}
-            <Image
-              src={goal.src}
-              alt={`SDG ${goal.id}: ${goal.title}`}
-              title={goal.title}
-              width={120}
-              height={120}
-              unoptimized
-              className="size-[120px] rounded-sdg"
-            />
+            <a
+              href={goal.href}
+              target="_blank"
+              rel="noopener"
+              title={`${goal.title} — read about this goal on the UN website`}
+              className="block rounded-sdg outline-none hover:opacity-90 focus-visible:ring-2 focus-visible:ring-green focus-visible:ring-offset-2 focus-visible:ring-offset-ground"
+            >
+              {/* Animated WebP: served as-is, so the optimiser is bypassed. */}
+              <Image
+                src={goal.src}
+                alt={`SDG ${goal.id}: ${goal.title}`}
+                width={120}
+                height={120}
+                unoptimized
+                className="size-[120px] rounded-sdg"
+              />
+            </a>
           </li>
         ))}
       </ul>

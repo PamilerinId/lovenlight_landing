@@ -68,9 +68,13 @@
     0 12px 40px rgba(17, 20, 17, 0.06);
 }
 
-/* Hero stat chips: same surface, slightly deeper drop shadow. */
+/* Hero stat chips: same surface, slightly deeper drop shadow. These sit on
+   top of the hero photograph, so the green tint is layered over a translucent
+   page-ground base to keep the figures legible against a dark image. */
 @utility glass-chip {
-  background: rgba(30, 122, 44, 0.06);
+  background:
+    linear-gradient(rgba(30, 122, 44, 0.06), rgba(30, 122, 44, 0.06)),
+    rgba(252, 251, 240, 0.82);
   border: 1px solid rgba(30, 122, 44, 0.18);
   -webkit-backdrop-filter: blur(22px);
   backdrop-filter: blur(22px);

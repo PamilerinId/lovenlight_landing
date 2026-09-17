@@ -102,6 +102,33 @@ for (const [goal, file] of Object.entries(SDG_SOURCES)) {
   outputs.push(out);
 }
 
+// Client photos (design/assets/photos, originals as supplied). next/image
+// resizes and converts these on demand, so they only need to be big enough
+// for 2x of their largest render: the hero circle is ~600px, event photos
+// ~440px wide. The hero is a portrait shot cropped to its top square so both
+// faces sit inside the solid centre of the circular fade mask.
+const PHOTOS = [
+  { src: "hero-james-sunmi.jpg", out: "public/images/hero-james-sunmi.jpg", square: "top", width: 1400 },
+  { src: "event-food-outreach.jpg", out: "public/images/event-food-outreach.jpg", width: 1200 },
+  { src: "event-global-skills.jpg", out: "public/images/event-global-skills.jpg", width: 1200 },
+];
+
+for (const p of PHOTOS) {
+  let img = sharp(`${SRC}/photos/${p.src}`).rotate();
+  if (p.square) {
+    const { width, height } = await img.metadata();
+    const side = Math.min(width, height);
+    const top = p.square === "top" ? 0 : Math.round((height - side) / 2);
+    const left = Math.round((width - side) / 2);
+    img = img.extract({ left, top, width: side, height: side });
+  }
+  await img
+    .resize({ width: p.width, withoutEnlargement: true })
+    .jpeg({ quality: 84, mozjpeg: true })
+    .toFile(p.out);
+  outputs.push(p.out);
+}
+
 for (const f of outputs) {
   const { size } = await stat(f);
   console.log(`${f.padEnd(28)} ${(size / 1024).toFixed(0).padStart(5)} KB`);

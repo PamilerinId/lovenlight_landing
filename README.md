@@ -29,12 +29,17 @@ npm run lint
 Set `NEXT_PUBLIC_SITE_URL` (no trailing slash) in Vercel or `.env.local`.
 Canonical URL, sitemap, robots, Open Graph and JSON-LD all follow from it.
 
-## Adding the missing photos
+## Photos
 
-The hero photo and the three event photos are labelled placeholders until the
-client supplies them. Drop each file into `public/images/` and set the
-`photo` field for that item in `content/site.ts` to `{ src, alt }`. Nothing
-else changes. The School Renovation date is `[DATE]` for the same reason.
+The hero photo and the Food Outreach and Global Skills for Youth event photos
+are generated from the client originals in `design/assets/photos/` by
+`npm run assets` (crop and size rules live in `scripts/optimise-assets.mjs`).
+To add or replace one: drop the original into that folder, add or edit its row
+in the `PHOTOS` table in the script, run `npm run assets`, then set the
+`photo` field for that item in `content/site.ts` to `{ src, alt }`.
+
+Still labelled placeholders until the client supplies them: the School
+Renovation photo and its date (`[DATE]`).
 
 ## Assets
 

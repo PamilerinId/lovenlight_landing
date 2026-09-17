@@ -33,7 +33,14 @@ export function buildJsonLd() {
         sameAs: links.socials.map((s) => s.href),
         knowsAbout: [
           ...programmes.items.map((p) => p.title),
-          ...sdgs.map((g) => `SDG ${g.id}: ${g.title}`),
+          // Linked to the UN's own page for each goal so the entity is
+          // unambiguous to search engines and AI answer engines.
+          ...sdgs.map((g) => ({
+            "@type": "Thing",
+            name: `SDG ${g.id}: ${g.title}`,
+            url: g.href,
+            sameAs: g.href,
+          })),
         ],
       },
       {

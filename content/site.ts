@@ -55,8 +55,11 @@ export const hero = {
     volunteer: "Become a Volunteer",
     partner: "Partner with us →",
   },
-  // Client to supply. Drop the file into public/images/ and set { src, alt }.
-  photo: null as Photo | null,
+  // Generated from design/assets/photos by `npm run assets`.
+  photo: {
+    src: "/images/hero-james-sunmi.jpg",
+    alt: "James and Sunmi, two Love & Light Foundation volunteers, smiling and pointing at the foundation logo on their T-shirts",
+  } as Photo | null,
   photoPlaceholder: "[PHOTO: James & Sunmi]",
   chips: [
     { value: "5,000+", label: "families reached" },
@@ -88,11 +91,35 @@ export const story = {
     "Together, we're changing lives, creating opportunities, and building hope.",
 } as const;
 
+/**
+ * The four UN Sustainable Development Goals the foundation works towards.
+ * `href` points at the official UN SDG knowledge platform page for the goal.
+ */
 export const sdgs = [
-  { id: 1, title: "No Poverty", src: "/sdg/sdg-1.webp" },
-  { id: 2, title: "Zero Hunger", src: "/sdg/sdg-2.webp" },
-  { id: 4, title: "Quality Education", src: "/sdg/sdg-4.webp" },
-  { id: 17, title: "Partnerships for the Goals", src: "/sdg/sdg-17.webp" },
+  {
+    id: 1,
+    title: "No Poverty",
+    src: "/sdg/sdg-1.webp",
+    href: "https://sdgs.un.org/goals/goal1",
+  },
+  {
+    id: 2,
+    title: "Zero Hunger",
+    src: "/sdg/sdg-2.webp",
+    href: "https://sdgs.un.org/goals/goal2",
+  },
+  {
+    id: 4,
+    title: "Quality Education",
+    src: "/sdg/sdg-4.webp",
+    href: "https://sdgs.un.org/goals/goal4",
+  },
+  {
+    id: 17,
+    title: "Partnerships for the Goals",
+    src: "/sdg/sdg-17.webp",
+    href: "https://sdgs.un.org/goals/goal17",
+  },
 ] as const;
 
 export type ProgrammeIconName =
@@ -140,14 +167,20 @@ export const events = {
       date: "December 2026",
       dateTime: "2026-12",
       title: "Food Outreach 2026",
-      photo: null,
+      photo: {
+        src: "/images/event-food-outreach.jpg",
+        alt: "Women carrying bags of food staples received at a Love & Light Foundation community outreach",
+      },
       placeholder: "[PHOTO: Food Outreach]",
     },
     {
       date: "2027",
       dateTime: "2027",
       title: "Global Skills for Youth 2027",
-      photo: null,
+      photo: {
+        src: "/images/event-global-skills.jpg",
+        alt: "Secondary school students in uniform cheering during a Love & Light Foundation school outreach",
+      },
       placeholder: "[PHOTO: Global Skills for Youth]",
     },
     {
