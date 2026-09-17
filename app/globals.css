@@ -114,42 +114,6 @@
   pointer-events: none;
 }
 
-/* Native <details> disclosure used by the "What we do" list.
-   Collapsed on small screens; from the nav breakpoint up the toggle is hidden
-   and the content is forced open, so desktop never sees a control. No
-   JavaScript is involved. */
-.disclosure > summary {
-  list-style: none;
-  cursor: pointer;
-}
-.disclosure > summary::-webkit-details-marker {
-  display: none;
-}
-/* Swap the toggle label and point the chevron the other way when open. */
-.disclosure:not([open]) > summary .disclosure-hide,
-.disclosure[open] > summary .disclosure-show {
-  display: none;
-}
-.disclosure[open] > summary .disclosure-chevron {
-  transform: rotate(180deg);
-}
-
-@media (width >= 56.25rem) {
-  .disclosure > summary {
-    display: none;
-  }
-  /* Engines that hide closed content with the UA's display:none rule. This
-     targets the plain wrapper only, so the grid inside keeps its own display. */
-  .disclosure:not([open]) > .disclosure-content {
-    display: block;
-  }
-  /* Chrome 131+ hides it through this pseudo-element instead. */
-  .disclosure::details-content {
-    content-visibility: visible;
-    block-size: auto;
-  }
-}
-
 /* Circular hero photo whose edges fade into the page. */
 @utility photo-fade {
   -webkit-mask-image: radial-gradient(circle, #000 55%, rgba(0, 0, 0, 0) 100%);

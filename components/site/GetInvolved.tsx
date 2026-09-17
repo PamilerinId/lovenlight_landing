@@ -38,11 +38,7 @@ function Tile({
           <span className="block text-[13px] leading-[1.3] font-semibold text-ink">
             {photo.person.name}
           </span>
-          {/* Small tiles on phones cannot fit a wrapped role under the name;
-              the role still reaches assistive tech through the alt text. */}
-          <span className="hidden text-[12px] leading-[1.3] text-body nav:block">
-            {photo.person.role}
-          </span>
+          <span className="block text-[12px] leading-[1.3] text-body">{photo.person.role}</span>
         </figcaption>
       )}
     </figure>
@@ -95,13 +91,24 @@ export function GetInvolved() {
           </div>
         </article>
 
-        {/* Mosaic: one tall tile, two stacked beside it */}
-        <div className="grid h-[420px] grid-cols-2 grid-rows-2 gap-5 nav:col-span-7 nav:row-start-1 nav:h-auto nav:min-h-0">
-          <Tile photo={hall} sizes="(max-width: 900px) 50vw, 400px" className="row-span-2" />
-          <Tile photo={pulpit} sizes="(max-width: 900px) 50vw, 400px" />
+        {/* Mosaic. Desktop: one tall tile with two stacked beside it.
+            Phones: the two unnamed tiles share the top row and the named tile
+            takes the full width below, so its caption has room for the role. */}
+        <div className="grid grid-cols-2 grid-rows-[190px_230px] gap-5 nav:col-span-7 nav:row-start-1 nav:h-auto nav:min-h-0 nav:grid-rows-2">
+          <Tile
+            photo={hall}
+            sizes="(max-width: 900px) 45vw, 400px"
+            className="col-start-1 row-start-1 nav:row-span-2"
+          />
+          <Tile
+            photo={pulpit}
+            sizes="(max-width: 900px) 92vw, 400px"
+            className="col-span-2 col-start-1 row-start-2 nav:col-span-1 nav:col-start-2 nav:row-start-1"
+          />
           <Tile
             photo={rebirth}
-            sizes="(max-width: 900px) 50vw, 400px"
+            sizes="(max-width: 900px) 45vw, 400px"
+            className="col-start-2 row-start-1 nav:col-start-2 nav:row-start-2"
             imgClassName="object-[50%_30%]"
           />
         </div>

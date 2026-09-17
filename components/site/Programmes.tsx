@@ -7,11 +7,9 @@ import { ProgrammeIcon } from "./ProgrammeIcon";
 /**
  * "What we do" — a minimal list rather than a grid of cards.
  *
- * The programmes have names only (no descriptions exist in the client brief),
- * so there is nothing to put behind a per-item accordion. Instead the whole
- * list is a native <details> disclosure: collapsed on small screens to keep
- * the page short, and forced open from the nav breakpoint up by CSS. Using
- * <details> keeps this working with no client-side JavaScript.
+ * Always visible at every width. On phones the rows tighten and the 01–06
+ * counters drop away (the heading already says there are six), which keeps
+ * the whole set on screen without hiding anything behind a toggle.
  */
 export function Programmes() {
   return (
@@ -24,56 +22,30 @@ export function Programmes() {
         {programmes.heading}
       </h2>
 
-      <details className="disclosure mt-10">
-        <summary className="flex items-center justify-between gap-3 border-t border-hairline py-4 text-[15px] font-semibold text-green">
-          <span className="disclosure-show">Show the six programmes</span>
-          <span className="disclosure-hide">Hide the six programmes</span>
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden="true"
-            className="disclosure-chevron shrink-0"
+      <ul className="mt-8 grid grid-cols-1 border-t border-hairline nav:mt-10 nav:grid-cols-2 nav:gap-x-16">
+        {programmes.items.map((item) => (
+          <li
+            key={item.n}
+            className="flex items-center gap-3 border-b border-hairline py-4 nav:gap-4 nav:py-5"
           >
-            <path d="M6 9l6 6 6-6" />
-          </svg>
-        </summary>
-
-        {/* Plain wrapper: the desktop rule that forces the disclosure open
-            sets display on the direct child, so the grid lives one level in
-            where it cannot be overridden. */}
-        <div className="disclosure-content">
-          <ul className="grid grid-cols-1 border-t border-hairline nav:grid-cols-2 nav:gap-x-16">
-            {programmes.items.map((item) => (
-              <li
-                key={item.n}
-                className="flex items-center gap-4 border-b border-hairline py-5"
-              >
-                <ProgrammeIcon
-                  name={item.icon}
-                  className="size-6 shrink-0 text-green"
-                />
-                <h3
-                  className={cn(
-                    "flex-1 text-xl font-medium tracking-[-0.02em]",
-                    item.strong ? "text-green" : "text-ink"
-                  )}
-                >
-                  {item.title}
-                </h3>
-                <span className="text-[13px] font-semibold text-green tabular-nums">
-                  {item.n}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </details>
+            <ProgrammeIcon
+              name={item.icon}
+              className="size-5 shrink-0 text-green nav:size-6"
+            />
+            <h3
+              className={cn(
+                "flex-1 text-[17px] leading-[1.3] font-medium tracking-[-0.02em] nav:text-xl",
+                item.strong ? "text-green" : "text-ink"
+              )}
+            >
+              {item.title}
+            </h3>
+            <span className="hidden text-[13px] font-semibold text-green tabular-nums nav:block">
+              {item.n}
+            </span>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }
