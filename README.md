@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Love & Light Foundation — landing page
 
-## Getting Started
+Public single-page site for The Love and Light Community and Humanitarian
+Foundation. Next.js App Router, Tailwind v4, one shadcn Button. Fully static,
+no backend: every call to action is an external link.
 
-First, run the development server:
+## Run
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # production build
+npm run lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Where things live
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `content/site.ts` — every word, number and link on the page. Edit copy here
+  only; the page, metadata, JSON-LD, Open Graph image and `/llms.txt` all read
+  from it.
+- `components/site/` — one component per section, in page order.
+- `app/globals.css` — brand tokens (colours, radii, page padding, glass
+  surfaces). Only green and the neutrals exist as colour classes on purpose.
+- `design/` — the client handoff. `design/HANDOFF.md` is the spec of record;
+  `design/Love & Light Landing.dc.html` is the prototype this page implements.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Domain
 
-## Learn More
+Set `NEXT_PUBLIC_SITE_URL` (no trailing slash) in Vercel or `.env.local`.
+Canonical URL, sitemap, robots, Open Graph and JSON-LD all follow from it.
 
-To learn more about Next.js, take a look at the following resources:
+## Adding the missing photos
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The hero photo and the three event photos are labelled placeholders until the
+client supplies them. Drop each file into `public/images/` and set the
+`photo` field for that item in `content/site.ts` to `{ src, alt }`. Nothing
+else changes. The School Renovation date is `[DATE]` for the same reason.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Assets
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+`npm run assets` regenerates `public/images/logo.png`, `app/icon.png`,
+`app/apple-icon.png`, the build-time OG logo and the four animated SDG WebPs
+from the originals in `design/assets/`. Only run it when those originals
+change.

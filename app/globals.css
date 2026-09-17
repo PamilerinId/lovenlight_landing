@@ -1,26 +1,124 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+ * Brand tokens from design/HANDOFF.md. The default Tailwind palette and font
+ * scale are cleared so nothing off-brand can be reached from a class name:
+ * only green, the neutrals, and the yellow used for light glows exist.
+ */
+@theme {
+  --color-*: initial;
+  --color-white: #ffffff;
+  --color-ground: #fcfbf0;
+  --color-ink: #111411;
+  --color-body: #5b625b;
+  --color-muted: #8a908a;
+  --color-green: #1e7a2c;
+  --color-green-hover: #166022;
+  --color-hairline: rgba(0, 0, 0, 0.07);
+
+  --font-*: initial;
+  --font-sans: var(--font-manrope), system-ui, sans-serif;
+
+  /* px-page / mx-page: horizontal page padding */
+  --spacing-page: clamp(20px, 5.5vw, 80px);
+
+  /* nav: / max-nav: — 900px, in rem so Tailwind can sort it with its defaults */
+  --breakpoint-nav: 56.25rem;
+
+  --radius-card: 22px;
+  --radius-panel: 24px;
+  --radius-chip: 18px;
+  --radius-sdg: 12px;
+  --radius-photo: 14px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+  body {
+    background: var(--color-ground);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    text-wrap: pretty;
+  }
+  a {
+    color: var(--color-green);
+    text-decoration: none;
+  }
+  a:hover {
+    color: var(--color-green-hover);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Standard glass surface: cards, event cards, Volunteer panel. */
+@utility glass {
+  background: rgba(30, 122, 44, 0.06);
+  border: 1px solid rgba(30, 122, 44, 0.18);
+  -webkit-backdrop-filter: blur(22px);
+  backdrop-filter: blur(22px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 12px 40px rgba(17, 20, 17, 0.06);
+}
+
+/* Hero stat chips: same surface, slightly deeper drop shadow. */
+@utility glass-chip {
+  background: rgba(30, 122, 44, 0.06);
+  border: 1px solid rgba(30, 122, 44, 0.18);
+  -webkit-backdrop-filter: blur(22px);
+  backdrop-filter: blur(22px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 12px 40px rgba(17, 20, 17, 0.08);
+}
+
+/* Strong glass: the CSR programme card. */
+@utility glass-strong {
+  background: #1e7a2c;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 16px 48px rgba(30, 122, 44, 0.28);
+}
+
+/* Strong glass, panel weight: the Friends of Love & Light panel. */
+@utility glass-panel-strong {
+  background: #1e7a2c;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 24px 64px rgba(30, 122, 44, 0.3);
+}
+
+/* Eyebrow labels. Colour is applied separately (green, or white on green). */
+@utility eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Yellow light glow: the only place the brand yellow appears. */
+@utility page-glow {
+  position: absolute;
+  width: 900px;
+  height: 900px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 236, 60, 0.16) 0%,
+    rgba(255, 236, 60, 0) 62%
+  );
+  pointer-events: none;
+}
+
+/* Circular hero photo whose edges fade into the page. */
+@utility photo-fade {
+  -webkit-mask-image: radial-gradient(circle, #000 55%, rgba(0, 0, 0, 0) 100%);
+  mask-image: radial-gradient(circle, #000 55%, rgba(0, 0, 0, 0) 100%);
 }

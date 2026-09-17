@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+html,body{margin:0;padding:0;background:#FCFBF0;font-family:'Manrope',system-ui,sans-serif;-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+a{color:#1E7A2C;text-decoration:none}a:hover{color:#166022}
+*{box-sizing:border-box}
+@keyframes llBob{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+</style>
+</helmet>
+<div style="width:100%;max-width:1440px;margin:0 auto;background:#FCFBF0;color:#111411;font-family:'Manrope',system-ui,sans-serif;position:relative;text-wrap:pretty;overflow-x:clip">
+
+  <!-- NAV (fixed glass) -->
+  <nav style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(252,251,240,0.7);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid rgba(30,122,44,0.12)">
+    <div style="width:100%;max-width:1440px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px clamp(20px,5.5vw,80px)">
+      <a href="#begin" style="display:flex;align-items:center"><img src="./assets/logo.png" alt="Love and Light Foundation" style="height:44px;width:auto;display:block"></a>
+      <sc-if value="{{ desktop }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;gap:36px;font-size:15px;font-weight:500;color:#111411">
+        <a href="#belief" style="color:#111411">About</a>
+        <a href="#action" style="color:#111411">Programmes</a>
+        <a href="#now" style="color:#111411">Events</a>
+        <a href="#partner" style="color:#111411">News &amp; Stories</a>
+        <a href="#contact" style="color:#111411">Contact</a>
+      </div>
+      </sc-if>
+      <a href="#join" style="display:inline-flex;align-items:center;padding:11px 20px;border-radius:999px;background:#1E7A2C;color:#FFFFFF;font-size:14px;font-weight:600;box-shadow:inset 0 1px 0 rgba(255,255,255,0.35),0 8px 24px rgba(30,122,44,0.25)">Get involved</a>
+    </div>
+  </nav>
+
+  <!-- CHAPTER RAIL -->
+  <sc-if value="{{ desktop }}" hint-placeholder-val="{{ true }}">
+  <div style="position:fixed;right:28px;top:50%;transform:translateY(-50%);z-index:40;display:flex;flex-direction:column;gap:14px;align-items:flex-end">
+    <sc-for list="{{ chapters }}" as="c" hint-placeholder-count="7">
+      <button onClick="{{ c.go }}" style="display:flex;align-items:center;gap:10px;background:none;border:0;padding:0;cursor:pointer;font-family:inherit">
+        <span style="font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#1E7A2C;opacity:{{ c.labelOp }};transition:opacity 0.3s">{{ c.label }}</span>
+        <span style="width:{{ c.dotW }}px;height:6px;border-radius:999px;background:#1E7A2C;opacity:{{ c.dotOp }};transition:width 0.3s,opacity 0.3s;display:block"></span>
+      </button>
+    </sc-for>
+  </div>
+  </sc-if>
+
+  <!-- 01 BEGIN -->
+  <section id="begin" data-chapter="0" data-screen-label="01 Begin" style="min-height:100vh;position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,520px),1fr));gap:60px;align-items:center;max-width:1440px;margin:0 auto;padding:140px clamp(20px,5.5vw,80px) 120px;perspective:1400px">
+    <div style="position:absolute;right:-60px;top:-80px;width:900px;height:900px;border-radius:50%;background:radial-gradient(circle, rgba(255,236,60,{{ glowStrength }}) 0%, rgba(255,236,60,0) 62%);pointer-events:none"></div>
+    <div style="position:relative;z-index:1">
+      <div data-reveal="up" style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;letter-spacing:0.08em;color:#1E7A2C;text-transform:uppercase;will-change:transform,opacity">
+        <span style="width:7px;height:7px;border-radius:50%;background:#1E7A2C;display:inline-block"></span>Nigeria · Tanzania
+      </div>
+      <h1 data-reveal="up" data-delay="0.1" style="margin:22px 0 0;font-size:clamp(42px,5.3vw,76px);line-height:1.02;font-weight:500;letter-spacing:-0.03em;color:#111411;transform-origin:center bottom;will-change:transform,opacity">Changing lives. Creating possibilities.</h1>
+      <p data-reveal="up" data-delay="0.2" style="margin:28px 0 0;font-size:18px;line-height:1.6;color:#5B625B;max-width:560px;will-change:transform,opacity">Love &amp; Light Foundation is a nonprofit organization committed to improving lives through humanitarian assistance, quality education, youth and community empowerment, strategic partnerships and sustainable interventions that preserve dignity and create opportunity.</p>
+      <div data-reveal="up" data-delay="0.3" style="display:flex;align-items:center;gap:14px;margin-top:40px;flex-wrap:wrap;will-change:transform,opacity">
+        <a href="https://forms.gle/JpWV2ySyA9g27Hc68" style="display:inline-flex;align-items:center;padding:16px 28px;border-radius:999px;background:#1E7A2C;color:#FFFFFF;font-size:15px;font-weight:600;box-shadow:inset 0 1px 0 rgba(255,255,255,0.35),0 12px 32px rgba(30,122,44,0.28)">Become a Friend</a>
+        <a href="https://forms.gle/1QqAi7k2k63Jhjpv6" style="display:inline-flex;align-items:center;padding:15px 28px;border-radius:999px;border:1px solid rgba(30,122,44,0.35);color:#1E7A2C;font-size:15px;font-weight:600;background:rgba(30,122,44,0.04)">Become a Volunteer</a>
+        <a href="mailto:Loveandlightfoundation1@gmail.com" style="display:inline-flex;align-items:center;padding:15px 8px;color:#1E7A2C;font-size:15px;font-weight:600">Partner with us →</a>
+      </div>
+    </div>
+    <div style="position:relative;z-index:1;width:100%;max-width:680px;aspect-ratio:680/620;margin:0 auto;transform-style:preserve-3d">
+      <div data-tilt style="position:absolute;left:6%;top:2%;width:88%;aspect-ratio:1;border-radius:50%;transform-style:preserve-3d;will-change:transform;-webkit-mask-image:radial-gradient(circle, #000 55%, rgba(0,0,0,0) 100%);mask-image:radial-gradient(circle, #000 55%, rgba(0,0,0,0) 100%)">
+        <image-slot id="hero-james-sunmi" shape="circle" style="width:100%;height:100%" placeholder="[PHOTO: James &amp; Sunmi]"></image-slot>
+      </div>
+      <div data-reveal="left" data-delay="0.35" style="position:absolute;left:0;top:120px;display:flex;flex-direction:column;gap:2px;padding:16px 22px;border-radius:18px;background:rgba(30,122,44,0.06);border:1px solid rgba(30,122,44,0.18);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);box-shadow:inset 0 1px 0 rgba(255,255,255,0.9),0 12px 40px rgba(17,20,17,0.08);will-change:transform,opacity">
+        <span style="font-size:28px;font-weight:600;letter-spacing:-0.03em;color:#111411">5,000+</span>
+        <span style="font-size:13px;color:#5B625B">families reached</span>
+      </div>
+      <div data-reveal="right" data-delay="0.45" style="position:absolute;right:0;bottom:90px;display:flex;flex-direction:column;gap:2px;padding:16px 22px;border-radius:18px;background:rgba(30,122,44,0.06);border:1px solid rgba(30,122,44,0.18);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);box-shadow:inset 0 1px 0 rgba(255,255,255,0.9),0 12px 40px rgba(17,20,17,0.08);will-change:transform,opacity">
+        <span style="font-size:28px;font-weight:600;letter-spacing:-0.03em;color:#111411">80+</span>
+        <span style="font-size:13px;color:#5B625B">volunteers</span>
+      </div>
+    </div>
+    <div style="position:absolute;left:clamp(20px,5.5vw,80px);bottom:40px;display:flex;align-items:center;gap:12px;font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#8A908A">
+      <span style="display:block;width:1px;height:36px;background:rgba(30,122,44,0.4);animation:llBob 1.8s ease-in-out infinite"></span>Scroll to begin the journey
+    </div>
+  </section>
+
+  <!-- 02 BELIEF -->
+  <section id="belief" data-chapter="1" data-screen-label="02 Belief" style="min-height:100vh;display:flex;align-items:center;max-width:1440px;margin:0 auto;padding:120px clamp(20px,5.5vw,80px);perspective:1400px;border-top:1px solid rgba(0,0,0,0.07)">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:clamp(32px,5.5vw,80px);align-items:end;width:100%">
+      <div>
+        <span data-reveal="up" style="display:block;font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#1E7A2C;will-change:transform,opacity">Chapter 02 · Our story</span>
+        <h2 data-reveal="depth" data-delay="0.1" style="margin:24px 0 0;font-size:clamp(38px,4.4vw,64px);line-height:1.04;font-weight:500;letter-spacing:-0.03em;color:#111411;will-change:transform,opacity">We believe where you're born should never determine how far you can go.</h2>
+      </div>
+      <p data-reveal="up" data-delay="0.3" style="margin:0;font-size:20px;line-height:1.65;color:#5B625B;will-change:transform,opacity">Every day, millions of people are held back not by a lack of potential, but by a lack of opportunity. A child goes to bed hungry instead of learning. A young person with brilliant ideas never gets the chance to develop them. A woman with dreams of financial independence lacks the support to begin. We believe that can change.</p>
+    </div>
+  </section>
+
+  <!-- 03 CHANGE -->
+  <section id="change" data-chapter="2" data-screen-label="03 Change" style="min-height:100vh;display:flex;align-items:center;max-width:1440px;margin:0 auto;padding:120px clamp(20px,5.5vw,80px);perspective:1400px;border-top:1px solid rgba(0,0,0,0.07)">
+    <div style="width:100%">
+      <span data-reveal="up" style="display:block;font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#1E7A2C;will-change:transform,opacity">Chapter 03 · Compassion into action</span>
+      <p data-reveal="depth" data-delay="0.1" style="margin:24px 0 0;font-size:clamp(22px,2.4vw,34px);line-height:1.3;font-weight:500;letter-spacing:-0.02em;color:#111411;max-width:1100px;will-change:transform,opacity">Love &amp; Light Foundation exists to turn compassion into action by providing food where there is hunger, creating opportunities where there are barriers, and empowering individuals and communities to build a better future. Because lasting change doesn't happen through charity alone. It happens when people are given the opportunity to thrive.</p>
+      <p data-reveal="up" data-delay="0.3" style="margin:40px 0 0;font-size:20px;line-height:1.6;color:#5B625B;will-change:transform,opacity">Together, we're changing lives, creating opportunities, and building hope.</p>
+      <div style="display:flex;gap:14px;margin-top:48px;flex-wrap:wrap;transform-style:preserve-3d">
+        <sc-for list="{{ sdgs }}" as="g" hint-placeholder-count="4">
+          <img data-reveal="flip" data-delay="{{ g.delay }}" src="{{ g.img }}" alt="{{ g.t }}" title="{{ g.t }}" style="width:120px;height:120px;border-radius:12px;display:block;transform-origin:left center;will-change:transform,opacity">
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 ACTION -->
+  <section id="action" data-chapter="3" data-screen-label="04 Action" style="min-height:100vh;display:flex;align-items:center;max-width:1440px;margin:0 auto;padding:120px clamp(20px,5.5vw,80px);perspective:1600px;border-top:1px solid rgba(0,0,0,0.07)">
+    <div style="width:100%">
+      <span data-reveal="up" style="display:block;font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#1E7A2C;will-change:transform,opacity">Chapter 04 · What we do</span>
+      <h2 data-reveal="up" data-delay="0.1" style="margin:20px 0 0;font-size:clamp(36px,3.6vw,52px);line-height:1.08;font-weight:500;letter-spacing:-0.03em;max-width:900px;color:#111411;will-change:transform,opacity">Six ways we turn compassion into action.</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:20px;margin-top:64px;transform-style:preserve-3d">
+        <sc-for list="{{ programmes }}" as="p" hint-placeholder-count="6">
+          <div data-reveal="{{ p.reveal }}" data-delay="{{ p.delay }}" style="padding:32px;border-radius:22px;min-height:240px;display:flex;flex-direction:column;justify-content:space-between;gap:28px;background:{{ p.bg }};border:1px solid {{ p.border }};backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);box-shadow:{{ p.shadow }};will-change:transform,opacity">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="{{ p.ink }}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" dangerouslySetInnerHTML="{{ p.icon }}"></svg>
+              <span style="font-size:13px;font-weight:600;color:{{ p.num }}">{{ p.n }}</span>
+            </div>
+            <span style="font-size:24px;font-weight:500;letter-spacing:-0.02em;color:{{ p.title }}">{{ p.t }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 REACH -->
+  <section id="reach" data-chapter="4" data-screen-label="05 Reach" style="min-height:100vh;display:flex;align-items:center;max-width:1440px;margin:0 auto;padding:120px clamp(20px,5.5vw,80px);perspective:1400px;border-top:1px solid rgba(0,0,0,0.07)">
+    <div style="width:100%">
+      <span data-reveal="up" style="display:block;font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#1E7A2C;will-change:transform,opacity">Chapter 05 · Our reach so far</span>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:0;margin-top:56px;border-top:1px solid rgba(0,0,0,0.07)">
+        <sc-for list="{{ impact }}" as="s" hint-placeholder-count="6">
+          <div data-reveal="depth" data-delay="{{ s.delay }}" style="padding:44px 32px 44px 0;border-bottom:1px solid rgba(0,0,0,0.07);display:flex;flex-direction:column;gap:10px;will-change:transform,opacity">
+            <span data-count="{{ s.v }}" data-suffix="{{ s.suf }}" style="font-size:clamp(48px,5vw,72px);line-height:1;font-weight:500;letter-spacing:-0.04em;color:#111411;font-variant-numeric:tabular-nums">{{ s.n }}</span>
+            <span style="font-size:16px;line-height:1.4;color:#5B625B">{{ s.l }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 NOW -->
+  <section id="now" data-chapter="5" data-screen-label="06 Now" style="min-height:100vh;display:flex;align-items:center;max-width:1440px;margin:0 auto;padding:120px clamp(20px,5.5vw,80px);perspective:1600px;border-top:1px solid rgba(0,0,0,0.07)">
+    <div style="width:100%">
+      <span data-reveal="up" style="display:block;font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#1E7A2C;will-change:transform,opacity">Chapter 06 · Events</span>
+      <h2 data-reveal="up" data-delay="0.1" style="margin:20px 0 0;font-size:clamp(36px,3.6vw,52px);line-height:1.08;font-weight:500;letter-spacing:-0.03em;max-width:900px;color:#111411;will-change:transform,opacity">Current opportunities to create impact.</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:20px;margin-top:64px;transform-style:preserve-3d">
+        <sc-for list="{{ events }}" as="e" hint-placeholder-count="3">
+          <div data-reveal="{{ e.reveal }}" data-delay="{{ e.delay }}" style="padding:12px 12px 28px;border-radius:22px;display:flex;flex-direction:column;gap:20px;background:rgba(30,122,44,0.06);border:1px solid rgba(30,122,44,0.18);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);box-shadow:inset 0 1px 0 rgba(255,255,255,0.9),0 12px 40px rgba(17,20,17,0.06);will-change:transform,opacity">
+            <div style="height:260px;position:relative">
+              <image-slot id="{{ e.id }}" shape="rounded" radius="14" placeholder="{{ e.ph }}"></image-slot>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px;padding:0 16px">
+              <span style="font-size:13px;font-weight:600;color:#1E7A2C">{{ e.d }}</span>
+              <span style="font-size:22px;font-weight:500;letter-spacing:-0.02em;color:#111411;line-height:1.25">{{ e.t }}</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 JOIN -->
+  <section id="join" data-chapter="6" data-screen-label="07 Join" style="min-height:100vh;display:flex;align-items:center;max-width:1440px;margin:0 auto;padding:120px clamp(20px,5.5vw,80px);perspective:1600px;position:relative;border-top:1px solid rgba(0,0,0,0.07)">
+    <div style="position:absolute;right:-120px;top:40px;width:900px;height:900px;border-radius:50%;background:radial-gradient(circle, rgba(255,236,60,{{ glowStrength }}) 0%, rgba(255,236,60,0) 62%);pointer-events:none"></div>
+    <div style="width:100%;position:relative">
+      <span data-reveal="up" style="display:block;font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#1E7A2C;will-change:transform,opacity">Chapter 07 · Your part in the story</span>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:20px;margin-top:32px;transform-style:preserve-3d">
+        <div data-reveal="left" data-delay="0.1" style="padding:clamp(28px,3.3vw,48px);border-radius:24px;display:flex;flex-direction:column;background:rgba(30,122,44,0.06);border:1px solid rgba(30,122,44,0.18);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);box-shadow:inset 0 1px 0 rgba(255,255,255,0.9),0 12px 40px rgba(17,20,17,0.06);transform-origin:right center;will-change:transform,opacity">
+          <span style="font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#1E7A2C">Volunteer With Us</span>
+          <h3 style="margin:20px 0 0;font-size:clamp(28px,2.5vw,36px);line-height:1.1;font-weight:500;letter-spacing:-0.03em;color:#111411">Be the reason someone believes tomorrow can be better.</h3>
+          <p style="margin:24px 0 0;font-size:16px;line-height:1.7;color:#5B625B;flex:1">Your time, skills, and passion can create lasting change. Whether you're a student, young professional, creative, entrepreneur, or simply someone who wants to make a difference, there's a place for you at Love &amp; Light Foundation. Join our community of volunteers and help us deliver outreaches, empower communities, organize impactful events, and bring hope to those who need it most.</p>
+          <div style="margin-top:36px"><a href="https://forms.gle/1QqAi7k2k63Jhjpv6" style="display:inline-flex;align-items:center;padding:15px 28px;border-radius:999px;border:1px solid rgba(30,122,44,0.35);color:#1E7A2C;font-size:15px;font-weight:600;background:rgba(30,122,44,0.04)">Become a Volunteer</a></div>
+        </div>
+        <div data-reveal="right" data-delay="0.2" style="padding:clamp(28px,3.3vw,48px);border-radius:24px;display:flex;flex-direction:column;background:#1E7A2C;box-shadow:inset 0 1px 0 rgba(255,255,255,0.35),0 24px 64px rgba(30,122,44,0.3);transform-origin:left center;will-change:transform,opacity">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+            <span style="font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.85)">Friends of Love &amp; Light</span>
+            <span style="padding:6px 12px;border-radius:999px;border:1px solid rgba(255,255,255,0.35);background:rgba(255,255,255,0.1);font-size:13px;font-weight:600;color:#FFFFFF">From ₦2,000 / month</span>
+          </div>
+          <h3 style="margin:20px 0 0;font-size:clamp(28px,2.5vw,36px);line-height:1.1;font-weight:500;letter-spacing:-0.03em;color:#FFFFFF">Change a life every month.</h3>
+          <p style="margin:24px 0 0;font-size:16px;line-height:1.7;color:rgba(255,255,255,0.9)">Friends of Love &amp; Light is our monthly giving community, a family of compassionate people committed to creating lasting impact through consistent generosity. With a commitment of ₦2,000 or more each month, you help provide meals, expand access to education, empower young people with life-changing skills, and support community development projects throughout the year.</p>
+          <ul style="margin:24px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px;flex:1">
+            <li style="display:flex;align-items:center;gap:12px;font-size:15px;font-weight:500;color:#FFFFFF"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Exclusive impact updates</li>
+            <li style="display:flex;align-items:center;gap:12px;font-size:15px;font-weight:500;color:#FFFFFF"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Transparent reports on your giving</li>
+            <li style="display:flex;align-items:center;gap:12px;font-size:15px;font-weight:500;color:#FFFFFF"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Invitations to special projects and annual gatherings</li>
+            <li style="display:flex;align-items:center;gap:12px;font-size:15px;font-weight:500;color:#FFFFFF"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>The joy of knowing you're changing lives consistently</li>
+          </ul>
+          <p style="margin:24px 0 0;font-size:15px;line-height:1.6;color:rgba(255,255,255,0.85)">Because lasting impact isn't built by one person, it is built by people who choose to show up, month after month.</p>
+          <div style="margin-top:36px"><a href="https://forms.gle/JpWV2ySyA9g27Hc68" style="display:inline-flex;align-items:center;padding:16px 28px;border-radius:999px;background:#FFFFFF;color:#1E7A2C;font-size:15px;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,0.12)">Become a Friend</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTNER BAND -->
+  <section id="partner" style="max-width:1440px;margin:0 auto;padding:90px clamp(20px,5.5vw,80px);display:flex;flex-wrap:wrap;justify-content:space-between;gap:32px 60px;align-items:center;border-top:1px solid rgba(0,0,0,0.07);perspective:1400px">
+    <div data-reveal="up" style="display:flex;flex-direction:column;gap:16px;will-change:transform,opacity">
+      <h2 style="margin:0;font-size:clamp(32px,3vw,44px);line-height:1.08;font-weight:500;letter-spacing:-0.03em;color:#111411">Partner with us</h2>
+      <p style="margin:0;font-size:18px;line-height:1.6;color:#5B625B;max-width:760px">Corporates, foundations and institutions: we plan and deliver CSR programmes that create measurable change in communities.</p>
+    </div>
+    <a data-reveal="up" data-delay="0.15" href="mailto:Loveandlightfoundation1@gmail.com" style="display:inline-flex;align-items:center;padding:16px 28px;border-radius:999px;background:#1E7A2C;color:#FFFFFF;font-size:15px;font-weight:600;white-space:nowrap;box-shadow:inset 0 1px 0 rgba(255,255,255,0.35),0 12px 32px rgba(30,122,44,0.28);will-change:transform,opacity">Start a partnership</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="contact" style="max-width:1440px;margin:0 auto;padding:64px clamp(20px,5.5vw,80px) 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:48px;border-top:1px solid rgba(0,0,0,0.07)">
+    <div style="display:flex;flex-direction:column;gap:20px;align-items:flex-start">
+      <img src="./assets/logo.png" alt="Love and Light Foundation" style="height:64px;width:auto;display:block">
+      <p style="margin:0;font-size:15px;line-height:1.6;color:#5B625B;max-width:420px">The Love and Light Community and Humanitarian Foundation is a Nigerian nonprofit improving lives through humanitarian assistance, education and community empowerment.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <span style="font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#1E7A2C">Contact</span>
+      <a href="mailto:Loveandlightfoundation1@gmail.com" style="font-size:15px;color:#111411">Loveandlightfoundation1@gmail.com</a>
+      <a href="tel:+2348086904663" style="font-size:15px;color:#111411">0808 690 4663</a>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <span style="font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#1E7A2C">Follow @loveandlightngo</span>
+      <a href="https://www.instagram.com/loveandlightngo" style="font-size:15px;color:#111411">Instagram</a>
+      <a href="https://www.tiktok.com/@loveandlightngo" style="font-size:15px;color:#111411">TikTok</a>
+      <a href="https://www.linkedin.com/company/loveandlightngo/" style="font-size:15px;color:#111411">LinkedIn</a>
+      <a href="https://youtube.com/@loveandlightngo" style="font-size:15px;color:#111411">YouTube</a>
+    </div>
+  </footer>
+  <div style="max-width:1440px;margin:48px auto 0;padding:24px clamp(20px,5.5vw,80px) 40px;border-top:1px solid rgba(0,0,0,0.07);font-size:13px;color:#8A908A">© 2026 The Love and Light Community and Humanitarian Foundation. All rights reserved.</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;glowStrength&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.16,&quot;min&quot;:0.08,&quot;max&quot;:0.22,&quot;step&quot;:0.01,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Light&quot;},&quot;depth&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.3,&quot;max&quot;:2,&quot;step&quot;:0.1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Motion&quot;},&quot;revealSpeed&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.55,&quot;min&quot;:0.3,&quot;max&quot;:0.9,&quot;step&quot;:0.05,&quot;unit&quot;:&quot;vh&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Motion&quot;}}">
+class Component extends DCLogic {
+  state = { active: 0, desktop: typeof window === 'undefined' ? true : window.innerWidth >= 900 };
+  componentDidMount() {
+    this._raf = null;
+    this._on = () => { if (this._raf) return; this._raf = requestAnimationFrame(() => { this._raf = null; this.tick(); }); };
+    window.addEventListener('scroll', this._on, { passive: true });
+    window.addEventListener('resize', this._on);
+    this._iv = setInterval(this._on, 300);
+    this.tick();
+  }
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this._on);
+    window.removeEventListener('resize', this._on);
+    clearInterval(this._iv);
+  }
+  tick() {
+    const vh = window.innerHeight;
+    const depth = (this.props.depth ?? 1);
+    const reach = (this.props.revealSpeed ?? 0.55);
+    const ease = t => 1 - Math.pow(1 - t, 3);
+    document.querySelectorAll('[data-reveal]').forEach(el => {
+      const r = el.getBoundingClientRect();
+      const delay = parseFloat(el.dataset.delay || 0);
+      let p = (vh - r.top) / (vh * reach) - delay;
+      p = Math.max(0, Math.min(1, p));
+      const e = ease(p), k = (1 - e) * depth;
+      let t;
+      switch (el.dataset.reveal) {
+        case 'up': t = `rotateX(${k * 28}deg) translateY(${k * 90}px)`; break;
+        case 'left': t = `rotateY(${k * 50}deg) translateX(${-k * 160}px)`; break;
+        case 'right': t = `rotateY(${-k * 50}deg) translateX(${k * 160}px)`; break;
+        case 'depth': t = `translateZ(${-k * 700}px) rotateX(${k * 14}deg)`; break;
+        case 'flip': t = `rotateY(${-k * 75}deg) translateZ(${-k * 200}px)`; break;
+        default: t = `translateY(${k * 60}px)`;
+      }
+      el.style.transform = t;
+      el.style.opacity = e.toFixed(3);
+      if (el.dataset.count) {
+        const target = +el.dataset.count;
+        el.textContent = Math.round(e * target).toLocaleString('en-US') + (el.dataset.suffix || '');
+      }
+    });
+    const tilt = document.querySelector('[data-tilt]');
+    if (tilt) {
+      const s = window.scrollY;
+      tilt.style.transform = `rotateY(${Math.min(s / 10, 40) * depth}deg) rotateX(${Math.min(s / 30, 10) * depth}deg) translateY(${s * 0.2}px) scale(${Math.max(0.7, 1 - s / 2500)})`;
+      tilt.style.opacity = Math.max(0, 1 - s / (vh * 0.9)).toFixed(3);
+    }
+    let a = 0;
+    document.querySelectorAll('[data-chapter]').forEach((c, i) => { if (c.getBoundingClientRect().top <= vh * 0.5) a = i; });
+    const d = window.innerWidth >= 900;
+    if (a !== this.state.active || d !== this.state.desktop) this.setState({ active: a, desktop: d });
+  }
+  renderVals() {
+    const active = this.state.active;
+    const labels = ['Begin', 'Belief', 'Change', 'Action', 'Reach', 'Now', 'Join'];
+    const glass = { bg: 'rgba(30,122,44,0.06)', border: 'rgba(30,122,44,0.18)', shadow: 'inset 0 1px 0 rgba(255,255,255,0.9),0 12px 40px rgba(17,20,17,0.06)', ink: '#1E7A2C', num: '#1E7A2C', title: '#111411' };
+    const strong = { bg: '#1E7A2C', border: '#1E7A2C', shadow: 'inset 0 1px 0 rgba(255,255,255,0.35),0 16px 48px rgba(30,122,44,0.28)', ink: '#FFFFFF', num: 'rgba(255,255,255,0.8)', title: '#FFFFFF' };
+    const icons = [
+      '<path d="M4 11h16"/><path d="M5 11a7 7 0 0 1 14 0"/><path d="M3 15h18"/><path d="M6 19h12"/>',
+      '<path d="M4 19V6a2 2 0 0 1 2-2h5v15H6a2 2 0 0 0-2 2z"/><path d="M20 19V6a2 2 0 0 0-2-2h-5v15h5a2 2 0 0 1 2 2z"/>',
+      '<path d="M12 20V10"/><path d="M12 10c0-4 3-6 7-6 0 4-3 6-7 6z"/><path d="M12 14c0-3-2.5-5-6-5 0 3 2.5 5 6 5z"/><path d="M6 20h12"/>',
+      '<circle cx="12" cy="7" r="3.5"/><path d="M5 21a7 7 0 0 1 14 0"/><path d="M17 3l1 1"/><path d="M19 7h1.5"/>',
+      '<path d="M3 21h18"/><path d="M5 21V11l4-3 4 3v10"/><path d="M13 21V8l6-3v16"/><path d="M8 14h1"/><path d="M8 17h1"/>',
+      '<path d="M8 12h.01"/><path d="M4 8h16"/><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 16h8"/><path d="M12 12h4"/>',
+    ];
+    const titles = ['Food Security', 'Education', 'Youth Empowerment', 'Women Development', 'Community Development', 'CSR Execution for Partners'];
+    const reveals = ['left', 'depth', 'right', 'left', 'depth', 'right'];
+    return {
+      glowStrength: this.props.glowStrength ?? 0.16,
+      desktop: this.state.desktop,
+      chapters: labels.map((label, i) => ({
+        label, labelOp: i === active ? 1 : 0, dotW: i === active ? 28 : 6, dotOp: i === active ? 1 : 0.3,
+        go: () => { const el = document.querySelector(`[data-chapter="${i}"]`); if (el) window.scrollTo({ top: el.offsetTop, behavior: 'smooth' }); },
+      })),
+      sdgs: [
+        { n: 'SDG 1', t: 'No Poverty', delay: 0.35, img: './assets/sdg-1.gif' },
+        { n: 'SDG 2', t: 'Zero Hunger', delay: 0.42, img: './assets/sdg-2.gif' },
+        { n: 'SDG 4', t: 'Quality Education', delay: 0.49, img: './assets/sdg-4.gif' },
+        { n: 'SDG 17', t: 'Partnerships for the Goals', delay: 0.56, img: './assets/sdg-17.gif' },
+      ],
+      programmes: titles.map((t, i) => ({
+        ...(i === 5 ? strong : glass), t, n: '0' + (i + 1), reveal: reveals[i], delay: 0.15 + i * 0.07, icon: { __html: icons[i] },
+      })),
+      impact: [
+        { n: '5,000+', v: 5000, suf: '+', l: 'Families Reached', delay: 0.1 },
+        { n: '1,500+', v: 1500, suf: '+', l: 'Conference Attendees', delay: 0.18 },
+        { n: '500+', v: 500, suf: '+', l: 'Young People Empowered', delay: 0.26 },
+        { n: '2', v: 2, suf: '', l: 'Countries Reached (Nigeria & Tanzania)', delay: 0.34 },
+        { n: '80+', v: 80, suf: '+', l: 'Volunteers', delay: 0.42 },
+        { n: '12+', v: 12, suf: '+', l: 'Community Projects', delay: 0.5 },
+      ],
+      events: [
+        { id: 'event-food-outreach', d: 'December 2026', t: 'Food Outreach 2026', ph: '[PHOTO: Food Outreach]', reveal: 'left', delay: 0.15 },
+        { id: 'event-global-skills', d: '2027', t: 'Global Skills for Youth 2027', ph: '[PHOTO: Global Skills for Youth]', reveal: 'depth', delay: 0.25 },
+        { id: 'event-school-renovation', d: '[DATE]', t: 'Legacy Project: School Renovation', ph: '[PHOTO: School Renovation]', reveal: 'right', delay: 0.35 },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>
