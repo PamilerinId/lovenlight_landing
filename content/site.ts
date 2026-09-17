@@ -201,6 +201,25 @@ export const involved = {
     body: "Your time, skills, and passion can create lasting change. Whether you're a student, young professional, creative, entrepreneur, or simply someone who wants to make a difference, there's a place for you at Love & Light Foundation. Join our community of volunteers and help us deliver outreaches, empower communities, organize impactful events, and bring hope to those who need it most.",
     cta: "Become a Volunteer",
   },
+  /** Photo mosaic beside the Volunteer panel: volunteers and speakers at work. */
+  gallery: [
+    {
+      src: "/images/volunteer-school-hall.jpg",
+      alt: "A Love & Light Foundation volunteer addressing rows of secondary school students in a school hall",
+    },
+    {
+      src: "/images/volunteer-pulpit.jpg",
+      alt: "A volunteer in a Love & Light Foundation T-shirt speaking into a microphone at a community event",
+    },
+    {
+      src: "/images/volunteer-rebirth.jpg",
+      alt: "A guest speaker addressing seated attendees at Rebirth, a Love and Light experience",
+    },
+    {
+      src: "/images/volunteer-outdoor.jpg",
+      alt: "A speaker with a microphone addressing an outdoor community gathering",
+    },
+  ] satisfies ReadonlyArray<Photo>,
   friends: {
     label: "Friends of Love & Light",
     badge: "From ₦2,000 / month",

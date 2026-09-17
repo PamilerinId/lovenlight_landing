@@ -111,6 +111,11 @@ const PHOTOS = [
   { src: "hero-james-sunmi.jpg", out: "public/images/hero-james-sunmi.jpg", square: "top", width: 1400 },
   { src: "event-food-outreach.jpg", out: "public/images/event-food-outreach.jpg", width: 1200 },
   { src: "event-global-skills.jpg", out: "public/images/event-global-skills.jpg", width: 1200 },
+  // "Get involved" mosaic tiles, each at most ~470px wide on screen.
+  { src: "volunteer-school-hall.jpg", out: "public/images/volunteer-school-hall.jpg", width: 1080 },
+  { src: "volunteer-pulpit.jpg", out: "public/images/volunteer-pulpit.jpg", width: 1200 },
+  { src: "volunteer-rebirth.jpg", out: "public/images/volunteer-rebirth.jpg", width: 1200 },
+  { src: "volunteer-outdoor.jpg", out: "public/images/volunteer-outdoor.jpg", width: 1000 },
 ];
 
 for (const p of PHOTOS) {
