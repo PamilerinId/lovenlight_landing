@@ -12,7 +12,18 @@ export type Photo = { src: string; alt: string };
 /** A named person shown in a photo; rendered as a caption on the tile. */
 export type Person = { name: string; role: string };
 
-export type PersonPhoto = Photo & { person?: Person };
+/**
+ * A portrait in "Our people". `name` may be a group rather than an individual
+ * ("Patrons & Matrons"), in which case `role` is null because the name already
+ * carries it.
+ */
+export type PersonCard = {
+  name: string;
+  role: string | null;
+  photo: Photo;
+  /** Group shots take two columns; a portrait crop would cut people out. */
+  wide?: boolean;
+};
 
 export const leadership = {
   founder: {
@@ -42,7 +53,12 @@ export const org = {
 export const links = {
   friend: "https://forms.gle/JpWV2ySyA9g27Hc68",
   volunteer: "https://forms.gle/1QqAi7k2k63Jhjpv6",
-  partner: `mailto:${org.email}`,
+  // INTERIM: the client has not supplied a partnership link or a giving link.
+  // Both open an email so the buttons still work. Replace `donate` with a
+  // hosted payment link (Paystack, Flutterwave) — no backend is needed — and
+  // `partner` with a form or page when they decide.
+  partner: `mailto:${org.email}?subject=Partnership%20enquiry`,
+  donate: `mailto:${org.email}?subject=Donation`,
   socials: [
     { name: "Instagram", href: "https://www.instagram.com/loveandlightngo" },
     { name: "TikTok", href: "https://www.tiktok.com/@loveandlightngo" },
@@ -105,6 +121,48 @@ export const story = {
   ],
   closing:
     "Together, we're changing lives, creating opportunities, and building hope.",
+  /**
+   * Portraits at the foot of "Our story". Deliberately placed here rather than
+   * beside the Friends of Love & Light panel, so the patrons never appear to
+   * be the ones asking for money.
+   */
+  peopleHeading: "Our people",
+  people: [
+    {
+      name: leadership.founder.name,
+      role: leadership.founder.role,
+      photo: {
+        src: "/images/people-founder.jpg",
+        alt: `${leadership.founder.name}, ${leadership.founder.role} of Love & Light Foundation, speaking into a microphone in a foundation T-shirt`,
+      },
+    },
+    {
+      name: leadership.grandPatron.name,
+      role: leadership.grandPatron.role,
+      photo: {
+        src: "/images/people-grand-patron.jpg",
+        alt: `${leadership.grandPatron.name}, ${leadership.grandPatron.role} of Love & Light Foundation, speaking with a microphone at an outdoor gathering`,
+      },
+    },
+    {
+      name: "Patrons & Matrons",
+      role: null,
+      wide: true,
+      photo: {
+        src: "/images/people-patrons.jpg",
+        alt: "The patrons and matrons of Love & Light Foundation photographed together at Rebirth, a Love and Light experience",
+      },
+    },
+    {
+      name: "Our volunteers",
+      role: null,
+      wide: true,
+      photo: {
+        src: "/images/people-volunteers.jpg",
+        alt: "A Love & Light Foundation volunteer receiving a certificate of recognition",
+      },
+    },
+  ] satisfies ReadonlyArray<PersonCard>,
 } as const;
 
 /**
@@ -150,6 +208,13 @@ export type Programme = {
   n: string;
   title: string;
   icon: ProgrammeIconName;
+  /**
+   * One or two lines describing the programme. `null` until the client
+   * supplies copy — only CSR Execution has been written so far — and the card
+   * shows a labelled placeholder in its place.
+   */
+  blurb: string | null;
+  photo: Photo | null;
   strong?: boolean;
 };
 
@@ -157,12 +222,70 @@ export const programmes = {
   eyebrow: "What we do",
   heading: "Six ways we turn compassion into action.",
   items: [
-    { n: "01", title: "Food Security", icon: "bowl" },
-    { n: "02", title: "Education", icon: "book" },
-    { n: "03", title: "Youth Empowerment", icon: "sprout" },
-    { n: "04", title: "Women Development", icon: "person" },
-    { n: "05", title: "Community Development", icon: "buildings" },
-    { n: "06", title: "CSR Execution for Partners", icon: "briefcase", strong: true },
+    {
+      n: "01",
+      title: "Food Security",
+      icon: "bowl",
+      blurb: null,
+      // Shares the Events photograph: this is the only food photography
+      // supplied. A second one would remove the repeat.
+      photo: {
+        src: "/images/event-food-outreach.jpg",
+        alt: "Women carrying bags of food staples received at a Love & Light Foundation community outreach",
+      },
+    },
+    {
+      n: "02",
+      title: "Education",
+      icon: "book",
+      blurb: null,
+      photo: {
+        src: "/images/programme-education.jpg",
+        alt: "A school pupil in uniform speaking into a microphone at a school outreach",
+      },
+    },
+    {
+      n: "03",
+      title: "Youth Empowerment",
+      icon: "sprout",
+      blurb: null,
+      photo: {
+        src: "/images/programme-youth.jpg",
+        alt: "A Love & Light Foundation volunteer addressing rows of secondary school students in a school hall",
+      },
+    },
+    {
+      n: "04",
+      title: "Women Development",
+      icon: "person",
+      blurb: null,
+      photo: {
+        src: "/images/programme-women.jpg",
+        alt: "Three women wearing project manager passes in front of a Sustainable Development Goals banner at a ladies conference",
+      },
+    },
+    {
+      n: "05",
+      title: "Community Development",
+      icon: "buildings",
+      blurb: null,
+      photo: {
+        src: "/images/programme-community.jpg",
+        alt: "The Love & Light Foundation team and community members gathered outside a diocesan hall in Ibadan",
+      },
+    },
+    {
+      n: "06",
+      title: "CSR Execution for Partners",
+      icon: "briefcase",
+      blurb:
+        "We help you execute your CSR projects for your company, landmark event, birthday or anniversaries",
+      photo: {
+        src: "/images/programme-csr.jpg",
+        alt: "Attendees filling a hall at a conference session",
+      },
+      strong: true,
+    },
   ] satisfies ReadonlyArray<Programme>,
 } as const;
 
@@ -211,36 +334,12 @@ export const events = {
 
 export const involved = {
   eyebrow: "Get involved",
-  volunteer: {
-    label: "Volunteer With Us",
-    heading: "Be the reason someone believes tomorrow can be better.",
-    body: "Your time, skills, and passion can create lasting change. Whether you're a student, young professional, creative, entrepreneur, or simply someone who wants to make a difference, there's a place for you at Love & Light Foundation. Join our community of volunteers and help us deliver outreaches, empower communities, organize impactful events, and bring hope to those who need it most.",
-    cta: "Become a Volunteer",
-  },
   /**
-   * Photo mosaic beside the Volunteer panel. Tiles with a `person` carry a
-   * caption naming them; this doubles as the site's leadership presence.
+   * Panels in the priority order the client set: Friends first, then
+   * Partnership, then Volunteer. Partnership copy lives in `partner`
+   * below, which the closing band also used before it was merged here.
    */
-  gallery: [
-    {
-      src: "/images/volunteer-school-hall.jpg",
-      alt: "A Love & Light Foundation volunteer addressing rows of secondary school students in a school hall",
-    },
-    {
-      src: "/images/volunteer-pulpit.jpg",
-      alt: `${leadership.founder.name}, ${leadership.founder.role} of Love & Light Foundation, speaking into a microphone in a foundation T-shirt`,
-      person: leadership.founder,
-    },
-    {
-      src: "/images/volunteer-rebirth.jpg",
-      alt: "A guest speaker addressing seated attendees at Rebirth, a Love and Light experience",
-    },
-    {
-      src: "/images/volunteer-outdoor.jpg",
-      alt: `${leadership.grandPatron.name}, ${leadership.grandPatron.role} of Love & Light Foundation, speaking with a microphone at an outdoor gathering`,
-      person: leadership.grandPatron,
-    },
-  ] satisfies ReadonlyArray<PersonPhoto>,
+
   friends: {
     label: "Friends of Love & Light",
     badge: "From ₦2,000 / month",
@@ -256,12 +355,39 @@ export const involved = {
       "Because lasting impact isn't built by one person, it is built by people who choose to show up, month after month.",
     cta: "Become a Friend",
   },
+  volunteer: {
+    label: "Volunteer With Us",
+    heading: "Be the reason someone believes tomorrow can be better.",
+    body: "Your time, skills, and passion can create lasting change. Whether you're a student, young professional, creative, entrepreneur, or simply someone who wants to make a difference, there's a place for you at Love & Light Foundation. Join our community of volunteers and help us deliver outreaches, empower communities, organize impactful events, and bring hope to those who need it most.",
+    cta: "Become a Volunteer",
+  },
 } as const;
 
 export const partner = {
   heading: "Partner with us",
   body: "Corporates, foundations and institutions: we plan and deliver CSR programmes that create measurable change in communities.",
   cta: "Start a partnership",
+} as const;
+
+/**
+ * News & Stories. The client is sending two reviews from past projects; until
+ * they arrive each slot renders a labelled placeholder, the same convention the
+ * handoff uses for missing photos and dates.
+ */
+export type Review = {
+  quote: string;
+  name: string;
+  project: string;
+};
+
+/** Empty until the client sends the two reviews; typed so the section compiles. */
+const reviews: ReadonlyArray<Review> = [];
+
+export const news = {
+  eyebrow: "News & stories",
+  heading: "What people say about the work.",
+  reviews,
+  placeholders: ["[REVIEW 1: quote, name, project]", "[REVIEW 2: quote, name, project]"],
 } as const;
 
 export const footer = {

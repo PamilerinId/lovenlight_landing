@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import { sdgs, story } from "@/content/site";
+import { cn } from "@/lib/utils";
 
 import { Eyebrow } from "./primitives";
 
@@ -20,7 +21,49 @@ export function Story() {
         ))}
       </div>
       <p className="mt-12 text-2xl font-medium tracking-[-0.02em] text-ink">{story.closing}</p>
-      <ul className="mt-11 flex flex-wrap gap-[14px]" aria-label="UN Sustainable Development Goals we work towards">
+      {/* Our people. Kept here, well away from the Friends of Love & Light
+          panel, so the patrons never read as the ones asking for money. */}
+      <h3
+        id="people-heading"
+        className="mt-16 text-[clamp(24px,2vw,30px)] leading-[1.15] font-medium tracking-[-0.02em] text-ink"
+      >
+        {story.peopleHeading}
+      </h3>
+      <ul
+        aria-labelledby="people-heading"
+        className="mt-6 grid grid-cols-2 gap-3 nav:mt-8 nav:gap-5"
+      >
+        {story.people.map((p) => (
+          // Group shots take the full width on phones, where a half-width tile
+          // would crop people out. On desktop every tile is equal.
+          <li key={p.name} className={cn(p.wide && "col-span-2 nav:col-span-1")}>
+            <figure className="flex h-full flex-col">
+              <div className="relative h-[210px] w-full overflow-hidden rounded-card nav:h-[340px]">
+                <Image
+                  src={p.photo.src}
+                  alt={p.photo.alt}
+                  fill
+                  sizes={
+                    p.wide
+                      ? "(max-width: 900px) 92vw, 640px"
+                      : "(max-width: 900px) 46vw, 640px"
+                  }
+                  className="object-cover"
+                />
+              </div>
+              <figcaption className="mt-3 flex flex-col gap-0.5">
+                <span className="text-[15px] leading-[1.3] font-semibold text-ink">{p.name}</span>
+                {p.role && <span className="text-[13px] leading-[1.3] text-body">{p.role}</span>}
+              </figcaption>
+            </figure>
+          </li>
+        ))}
+      </ul>
+
+      <ul
+        className="mt-16 flex flex-wrap gap-[14px]"
+        aria-label="UN Sustainable Development Goals we work towards"
+      >
         {sdgs.map((goal) => (
           <li key={goal.id}>
             <a

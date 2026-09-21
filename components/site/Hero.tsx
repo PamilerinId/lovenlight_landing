@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { hero, links } from "@/content/site";
+import { hero, links, org } from "@/content/site";
 
 import { Glow, PhotoSlot } from "./primitives";
 
@@ -22,12 +22,19 @@ export function Hero() {
         >
           {hero.title}
         </h1>
-        <p className="mt-7 max-w-[560px] text-lg leading-[1.6] text-body">{hero.body}</p>
+        {/* The registered name in full, which the client asked to appear on
+            the first page. It also gives search engines the legal name in
+            visible text, not just in the footer and structured data. */}
+        <p className="mt-4 text-[15px] leading-[1.5] font-medium text-body">{org.legalName}</p>
+        <p className="mt-6 max-w-[560px] text-lg leading-[1.6] text-body">{hero.body}</p>
         <div className="mt-10 flex flex-wrap items-center gap-[14px]">
           <Button asChild variant="primary" size="primary">
             <a href={links.friend} target="_blank" rel="noopener">
               {hero.ctas.friend}
             </a>
+          </Button>
+          <Button asChild variant="secondary" size="secondary">
+            <a href={links.donate}>Donate now</a>
           </Button>
           <Button asChild variant="secondary" size="secondary">
             <a href={links.volunteer} target="_blank" rel="noopener">
@@ -40,12 +47,14 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="relative z-[1] mx-auto aspect-[680/620] w-full max-w-[680px]">
-        <div className="photo-fade absolute top-[2%] left-[6%] aspect-square w-[88%] overflow-hidden rounded-full">
+      {/* Enlarged at the client's request: a wider box and the circle pushed
+          almost to its edge. Beyond this it crowds the headline at 1440px. */}
+      <div className="relative z-[1] mx-auto aspect-[760/660] w-full max-w-[760px]">
+        <div className="photo-fade absolute top-[1%] left-[2%] aspect-square w-[96%] overflow-hidden rounded-full">
           <PhotoSlot
             photo={hero.photo}
             placeholder={hero.photoPlaceholder}
-            sizes="(max-width: 900px) 88vw, 600px"
+            sizes="(max-width: 900px) 96vw, 730px"
             priority
             className="rounded-full"
           />

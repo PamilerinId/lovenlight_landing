@@ -4,7 +4,7 @@ import { GetInvolved } from "@/components/site/GetInvolved";
 import { Hero } from "@/components/site/Hero";
 import { ImpactStrip } from "@/components/site/ImpactStrip";
 import { Nav } from "@/components/site/Nav";
-import { PartnerBand } from "@/components/site/PartnerBand";
+import { News } from "@/components/site/News";
 import { Programmes } from "@/components/site/Programmes";
 import { Story } from "@/components/site/Story";
 import { SectionRule } from "@/components/site/primitives";
@@ -30,7 +30,7 @@ export default function HomePage() {
         <SectionRule />
         <GetInvolved />
         <SectionRule />
-        <PartnerBand />
+        <News />
         <SectionRule />
       </main>
       <Footer />

@@ -108,14 +108,28 @@ for (const [goal, file] of Object.entries(SDG_SOURCES)) {
 // ~440px wide. The hero is a portrait shot cropped to its top square so both
 // faces sit inside the solid centre of the circular fade mask.
 const PHOTOS = [
+  // Hero portrait, cropped to its top square so both faces sit inside the
+  // circular fade mask.
   { src: "hero-james-sunmi.jpg", out: "public/images/hero-james-sunmi.jpg", square: "top", width: 1400 },
+
+  // "What we do" cards. Each is at most ~470px wide on screen.
+  // Food Security reuses the food-outreach photograph: it is the only food
+  // photography supplied. A second one would remove the repeat with Events.
+  { src: "programme-education.jpg", out: "public/images/programme-education.jpg", width: 1000 },
+  { src: "volunteer-school-hall.jpg", out: "public/images/programme-youth.jpg", width: 1000 },
+  { src: "programme-women.jpg", out: "public/images/programme-women.jpg", width: 1000 },
+  { src: "programme-community.jpg", out: "public/images/programme-community.jpg", width: 1000 },
+  { src: "programme-csr.jpg", out: "public/images/programme-csr.jpg", width: 1000 },
+
+  // People shown in "Our story".
+  { src: "volunteer-pulpit.jpg", out: "public/images/people-founder.jpg", width: 900 },
+  { src: "volunteer-outdoor.jpg", out: "public/images/people-grand-patron.jpg", width: 900 },
+  { src: "people-patrons.jpg", out: "public/images/people-patrons.jpg", width: 1200 },
+  { src: "people-volunteers.jpg", out: "public/images/people-volunteers.jpg", width: 1200 },
+
+  // Events.
   { src: "event-food-outreach.jpg", out: "public/images/event-food-outreach.jpg", width: 1200 },
   { src: "event-global-skills.jpg", out: "public/images/event-global-skills.jpg", width: 1200 },
-  // "Get involved" mosaic tiles, each at most ~470px wide on screen.
-  { src: "volunteer-school-hall.jpg", out: "public/images/volunteer-school-hall.jpg", width: 1080 },
-  { src: "volunteer-pulpit.jpg", out: "public/images/volunteer-pulpit.jpg", width: 1200 },
-  { src: "volunteer-rebirth.jpg", out: "public/images/volunteer-rebirth.jpg", width: 1200 },
-  { src: "volunteer-outdoor.jpg", out: "public/images/volunteer-outdoor.jpg", width: 1000 },
 ];
 
 for (const p of PHOTOS) {

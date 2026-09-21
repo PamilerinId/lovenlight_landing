@@ -82,6 +82,7 @@ export function GET() {
     involved.friends.closing,
     "",
     `${involved.friends.cta}: ${links.friend}`,
+    `Donate: ${links.donate}`,
     "",
     `## ${partner.heading}`,
     "",
