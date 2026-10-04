@@ -8,20 +8,8 @@ summary of what changed.
 
 ## A. Needed first
 
-### The two button links did not come through
-
-You marked both of these as done, but the links themselves were not in the
-document we received. They were most likely attached as clickable links,
-which get lost when text is copied. Could you paste the full web addresses
-directly into a message?
-
-- [ ] **"Donate now"** — the web address
-- [ ] **"Start a partnership"** — the web address. This one is now used in
-      three places: the Partner With Us panel, the CSR Execution card, and the
-      new Love in Action opportunity.
-
-Until they arrive, both buttons open an email to the foundation, so nothing on
-the page is broken in the meantime.
+The button links and the Friends logo have arrived and are live. One item is
+still holding up launch:
 
 ### Website address
 
@@ -33,20 +21,16 @@ the page is broken in the meantime.
 
 ## B. Photographs you said are on the way
 
-- [ ] **Food Outreach 2026 flier.** That card shows a labelled space for it.
+- [ ] **Food Outreach 2026 flier.** That card shows an illustration until it arrives.
       Fliers are usually tall, so we will display it uncropped.
-- [ ] **New main picture** for the top of the page.
 - [ ] **School Renovation photograph.** A "before" picture of the school
       building works best.
 - [ ] **More past event photographs**, if you would like more variety.
 
 ---
 
-## C. Two quick confirmations
+## C. One quick confirmation
 
-- [ ] **Friends of Love & Light logo.** We read your note as "use the main
-      Love & Light logo", so it now appears on the Friends panel. If there is
-      a separate Friends logo after all, please send it.
 - [ ] **Past events.** You listed seven. Because the photographs were not
       labelled by school or year, we grouped them into three cards so that
       every photo is correctly placed:
@@ -77,13 +61,23 @@ through six languages and were the heaviest part of the page on phones.
 
 ## E. Optional
 
-- [ ] **A Love in Action photograph.** For now it shows a photo from a
-      community outreach. One from the monthly welfare project itself would be
-      better.
+- [ ] **A Love in Action photograph.** For now it shows pupils cheering
+      around a cake at an outreach. One from the monthly welfare project
+      itself would be better.
 
 ---
 
 ## What changed in this round
+
+- [x] **Donate now** goes to your Paystack page.
+- [x] **Partnership** (Partner With Us, the CSR card and Love in Action) goes
+      to your partnership form.
+- [x] The **Friends of Love & Light logo** is on the Friends panel.
+- [x] **New main picture**: the three children now fill the top of the page.
+      It is shown whole rather than in a circle, because a circle cut off the
+      child on the right.
+- [x] **Love in Action** uses the cake photograph of pupils cheering.
+- [x] **Footer** slimmed down, with social media shown as icons.
 
 - [x] All five programme descriptions added under "What we do".
 - [x] Full registered name on the first page made bigger and bolder.

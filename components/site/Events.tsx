@@ -1,3 +1,4 @@
+import { linkProps } from "@/lib/links";
 import type { CSSProperties } from "react";
 
 import { events, type EventItem } from "@/content/site";
@@ -39,6 +40,7 @@ function EventCard({ item }: { item: EventItem }) {
         {item.cta && (
           <a
             href={item.cta.href}
+            {...linkProps(item.cta.href)}
             className="mt-auto pt-2 text-[14px] font-semibold text-green hover:text-green-hover nav:text-[15px]"
           >
             {item.cta.label}

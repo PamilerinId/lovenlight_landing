@@ -1,3 +1,4 @@
+import { linkProps } from "@/lib/links";
 import type { CSSProperties } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -18,7 +19,7 @@ export function Hero() {
   return (
     <section
       aria-labelledby="hero-heading"
-      className="relative grid grid-cols-[repeat(auto-fit,minmax(min(100%,520px),1fr))] items-center gap-10 px-page pt-6 pb-16 nav:gap-[60px] nav:pt-[72px] nav:pb-[110px]"
+      className="relative grid grid-cols-1 items-center gap-10 px-page pt-6 pb-16 nav:grid-cols-[0.85fr_1.15fr] nav:gap-[60px] nav:pt-[72px] nav:pb-[110px]"
     >
       <Glow className="top-[-120px] right-[-60px]" />
 
@@ -50,34 +51,39 @@ export function Hero() {
           style={delay(240)}
         >
           <Button asChild variant="primary" size="primary">
-            <a href={links.friend} target="_blank" rel="noopener">
+            <a href={links.friend} {...linkProps(links.friend)}>
               {hero.ctas.friend}
             </a>
           </Button>
           <Button asChild variant="secondary" size="secondary">
-            <a href={links.donate}>Donate now</a>
+            <a href={links.donate} {...linkProps(links.donate)}>Donate now</a>
           </Button>
           <Button asChild variant="secondary" size="secondary">
-            <a href={links.volunteer} target="_blank" rel="noopener">
+            <a href={links.volunteer} {...linkProps(links.volunteer)}>
               {hero.ctas.volunteer}
             </a>
           </Button>
           <Button asChild variant="link" size="link">
-            <a href={links.partner}>{hero.ctas.partner}</a>
+            <a href={links.partner} {...linkProps(links.partner)}>{hero.ctas.partner}</a>
           </Button>
         </div>
       </div>
 
-      <div className="relative z-[1] mx-auto aspect-[760/660] w-full max-w-[760px]">
-        <div className="depth-photo photo-fade absolute top-[1%] left-[2%] aspect-square w-[96%] overflow-hidden rounded-full">
+      {/* The photo runs edge to edge (it bleeds out of the page padding) and
+          is shown whole: the three faces span nearly its full width, so any
+          square or circular crop cuts one off. */}
+      <div className="relative z-[1] -mx-page nav:mr-[calc(var(--spacing-page)*-1)] nav:ml-0">
+        <div className="depth-photo relative aspect-[3/2] w-full overflow-hidden nav:rounded-l-[32px]">
           <PhotoSlot
             photo={hero.photo}
-            sizes="(max-width: 900px) 92vw, 730px"
+            sizes="(max-width: 900px) 100vw, 780px"
             eager
-            className="rounded-full"
           />
         </div>
-        <div className="depth-chip-a absolute top-[18%] left-0">
+        {/* Chips sit over the two outer T-shirts: clear of faces and the watermark.
+          Desktop only: on a phone the image is too short for them, and the same
+          figures open the numbers chapter a few screens down. */}
+        <div className="depth-chip-a absolute -left-6 bottom-[6%] hidden nav:block">
           <div
             className="intro glass-chip flex flex-col gap-0.5 rounded-chip px-4 py-3 nav:px-[22px] nav:py-4"
             style={delay(450)}
@@ -88,7 +94,7 @@ export function Hero() {
             <span className="text-[12px] text-body nav:text-[13px]">{hero.chips[0].label}</span>
           </div>
         </div>
-        <div className="depth-chip-b absolute right-0 bottom-[14%]">
+        <div className="depth-chip-b absolute right-4 bottom-[6%] hidden nav:block">
           <div
             className="intro glass-chip flex flex-col gap-0.5 rounded-chip px-4 py-3 nav:px-[22px] nav:py-4"
             style={delay(600)}

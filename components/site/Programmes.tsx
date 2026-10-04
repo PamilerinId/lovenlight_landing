@@ -1,3 +1,4 @@
+import { linkProps } from "@/lib/links";
 import Image from "next/image";
 import type { CSSProperties } from "react";
 
@@ -82,6 +83,7 @@ export function Programmes() {
                 {item.cta && (
                   <a
                     href={item.cta.href}
+                    {...linkProps(item.cta.href)}
                     className={cn(
                       "mt-auto pt-1 text-[14px] font-semibold nav:pt-2 nav:text-[15px]",
                       item.strong

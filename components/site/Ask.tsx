@@ -1,3 +1,4 @@
+import { linkProps } from "@/lib/links";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 
@@ -41,7 +42,7 @@ export function Ask() {
           <p className="mt-3 flex-1 text-[15px] leading-[1.6] text-white/90">{friends.closing}</p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Button asChild variant="inverse" size="primary">
-              <a href={links.friend} target="_blank" rel="noopener">
+              <a href={links.friend} {...linkProps(links.friend)}>
                 {friends.cta}
               </a>
             </Button>
@@ -51,7 +52,7 @@ export function Ask() {
               size="secondary"
               className="border-white/60 bg-transparent text-white hover:bg-white hover:text-green"
             >
-              <a href={links.donate}>Donate now</a>
+              <a href={links.donate} {...linkProps(links.donate)}>Donate now</a>
             </Button>
           </div>
         </article>
@@ -66,7 +67,7 @@ export function Ask() {
           <p className="mt-3 flex-1 text-[15px] leading-[1.6] text-body">{partner.body}</p>
           <div className="mt-6">
             <Button asChild variant="secondary" size="secondary">
-              <a href={links.partner}>{partner.cta}</a>
+              <a href={links.partner} {...linkProps(links.partner)}>{partner.cta}</a>
             </Button>
           </div>
         </article>
@@ -80,7 +81,7 @@ export function Ask() {
           <h3 className={`mt-3 text-ink ${cardTitle}`}>{volunteer.heading}</h3>
           <div className="mt-6 nav:mt-auto nav:pt-6">
             <Button asChild variant="secondary" size="secondary">
-              <a href={links.volunteer} target="_blank" rel="noopener">
+              <a href={links.volunteer} {...linkProps(links.volunteer)}>
                 {volunteer.cta}
               </a>
             </Button>

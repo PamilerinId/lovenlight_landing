@@ -90,6 +90,27 @@ async function run() {
     check(!leaked, `${path} should contain no placeholder text (found ${leaked?.[0]})`);
   }
 
+  // 3b. Calls to action point at the real destinations, not the email
+  // fallbacks, and external ones open in a new tab.
+  for (const [path, page] of Object.entries(html)) {
+    check(page.includes("https://paystack.shop/pay/vt_4u04sfvk"), `${path} should link Donate now to Paystack`);
+    check(page.includes("https://forms.gle/4RPbnuThZHGbebxk6"), `${path} should link partnerships to the form`);
+    check(!/subject=Donation|subject=Partnership/.test(page), `${path} should not use the email fallback links`);
+    const anchors = [...markup(page).matchAll(/<a\b[^>]*>/g)].map((m) => m[0]);
+    for (const a of anchors) {
+      if (/href="https?:\/\/(paystack|forms\.gle)/.test(a)) {
+        check(/target="_blank"/.test(a) && /rel="[^"]*noopener/.test(a), `${path}: external CTA should open in a new tab: ${a.slice(0, 90)}`);
+      }
+    }
+  }
+
+  // 3c. Footer: the four social links are icons with accessible names.
+  const footerHtml = home.slice(home.indexOf("<footer"));
+  for (const network of ["Instagram", "TikTok", "LinkedIn", "YouTube"]) {
+    check(new RegExp(`aria-label="[^"]*on ${network}"`).test(footerHtml), `footer should have an accessible ${network} icon link`);
+  }
+  check((footerHtml.match(/<svg/g) || []).length >= 4, "footer social links should render icons");
+
   // 4. The second page.
   check((gi.match(/<h1[\s>]/g) || []).length === 1, "/get-involved should have exactly one <h1>");
   check(/rel="canonical" href="[^"]*\/get-involved"/.test(gi), "/get-involved should declare its own canonical URL");

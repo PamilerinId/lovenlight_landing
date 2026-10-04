@@ -75,9 +75,9 @@ for (const [goal, file] of Object.entries(SDG_SOURCES)) {
 // ~440px wide. The hero is a portrait shot cropped to its top square so both
 // faces sit inside the solid centre of the circular fade mask.
 const PHOTOS = [
-  // Hero portrait, cropped to its top square so both faces sit inside the
-  // circular fade mask.
-  { src: "hero-james-sunmi.jpg", out: "public/images/hero-james-sunmi.jpg", square: "top", width: 1400 },
+  // Hero: the full uncropped landscape photo (the old circular crop cut off
+  // the outer faces). Shown edge to edge at about 780px, so 1600 is 2x.
+  { src: "hero-students.jpg", out: "public/images/hero-students.jpg", width: 1600 },
 
   // "What we do" cards. Each is at most ~470px wide on screen. Food Security
   // uses the food-outreach photograph generated in the Events block below.
@@ -108,6 +108,16 @@ const PHOTOS = [
   // News & Stories: shown beside the review from the person it pictures.
   { src: "review-toluwalade.jpg", out: "public/images/review-toluwalade.jpg", width: 1200 },
 ];
+
+// Friends of Love & Light logo: supplied on a large white canvas, so trim the
+// margin to let it sit snugly in its chip. 480px wide is 3x its render size.
+await sharp("design/assets/friends-logo.png")
+  .flatten({ background: "#ffffff" })
+  .trim({ background: "#ffffff", threshold: 12 })
+  .resize({ width: 480 })
+  .webp({ quality: 92, effort: 6 })
+  .toFile("public/images/friends-logo.webp");
+outputs.push("public/images/friends-logo.webp");
 
 for (const p of PHOTOS) {
   let img = sharp(`${SRC}/photos/${p.src}`).rotate();

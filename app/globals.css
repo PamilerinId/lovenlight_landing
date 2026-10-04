@@ -119,12 +119,6 @@
   pointer-events: none;
 }
 
-/* Circular hero photo whose edges fade into the page. */
-@utility photo-fade {
-  -webkit-mask-image: radial-gradient(circle, #000 55%, rgba(0, 0, 0, 0) 100%);
-  mask-image: radial-gradient(circle, #000 55%, rgba(0, 0, 0, 0) 100%);
-}
-
 /* Soft yellow light inside an illustrated panel (see ArtPanel). */
 @utility art-glow {
   background: radial-gradient(

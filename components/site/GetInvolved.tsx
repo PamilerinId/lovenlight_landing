@@ -1,3 +1,4 @@
+import { linkProps } from "@/lib/links";
 import Image from "next/image";
 import type { CSSProperties } from "react";
 
@@ -7,11 +8,23 @@ import { involved, links, partner } from "@/content/site";
 import { Eyebrow } from "./primitives";
 import { CheckIcon } from "./ProgrammeIcon";
 
-/** The Love & Light logo on a white chip, legible against the green panel. */
+/**
+ * The Friends of Love & Light logo, supplied by the client. It comes on a
+ * white background with white lettering inside it, so it sits on a white chip
+ * rather than being cut out. The label beside it says the same words, so the
+ * image itself is decorative.
+ */
 export function FriendsLogo() {
   return (
-    <span className="inline-flex shrink-0 rounded-xl bg-white px-2.5 py-1.5">
-      <Image src="/images/logo.png" alt="" width={355} height={192} className="h-8 w-auto nav:h-9" />
+    <span className="inline-flex shrink-0 rounded-xl bg-white p-1.5 nav:p-2">
+      <Image
+        src="/images/friends-logo.webp"
+        alt=""
+        width={480}
+        height={343}
+        unoptimized
+        className="h-[52px] w-auto nav:h-[60px]"
+      />
     </span>
   );
 }
@@ -63,7 +76,7 @@ export function GetInvolvedPanels({ heading: H = "h2" }: { heading?: "h2" | "h3"
         </p>
         <div className="mt-8 flex flex-wrap gap-3 nav:mt-9">
           <Button asChild variant="inverse" size="primary">
-            <a href={links.friend} target="_blank" rel="noopener">
+            <a href={links.friend} {...linkProps(links.friend)}>
               {friends.cta}
             </a>
           </Button>
@@ -73,7 +86,7 @@ export function GetInvolvedPanels({ heading: H = "h2" }: { heading?: "h2" | "h3"
             size="secondary"
             className="border-white/60 bg-transparent text-white hover:bg-white hover:text-green"
           >
-            <a href={links.donate}>Donate now</a>
+            <a href={links.donate} {...linkProps(links.donate)}>Donate now</a>
           </Button>
         </div>
       </article>
@@ -94,7 +107,7 @@ export function GetInvolvedPanels({ heading: H = "h2" }: { heading?: "h2" | "h3"
           </p>
           <div className="mt-7 nav:mt-9">
             <Button asChild variant="secondary" size="secondary">
-              <a href={links.partner}>{partner.cta}</a>
+              <a href={links.partner} {...linkProps(links.partner)}>{partner.cta}</a>
             </Button>
           </div>
         </article>
@@ -114,7 +127,7 @@ export function GetInvolvedPanels({ heading: H = "h2" }: { heading?: "h2" | "h3"
           </p>
           <div className="mt-7 nav:mt-9">
             <Button asChild variant="secondary" size="secondary">
-              <a href={links.volunteer} target="_blank" rel="noopener">
+              <a href={links.volunteer} {...linkProps(links.volunteer)}>
                 {volunteer.cta}
               </a>
             </Button>

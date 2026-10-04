@@ -54,12 +54,11 @@ export const org = {
 export const links = {
   friend: "https://forms.gle/JpWV2ySyA9g27Hc68",
   volunteer: "https://forms.gle/1QqAi7k2k63Jhjpv6",
-  // INTERIM: the client marked both links "done" in their checklist, but the
-  // URLs did not come through with it (likely hyperlinks lost in the paste).
-  // Both open an email meanwhile so every button still works. `partner` is
-  // shared by Partner With Us, the CSR card and Love in Action.
-  partner: `mailto:${org.email}?subject=Partnership%20enquiry`,
-  donate: `mailto:${org.email}?subject=Donation`,
+  // Supplied by the client. `partner` is shared by Partner With Us, the CSR
+  // card and Love in Action; `donate` is a hosted Paystack payment page, so
+  // no payment handling lives on this site.
+  partner: "https://forms.gle/4RPbnuThZHGbebxk6",
+  donate: "https://paystack.shop/pay/vt_4u04sfvk",
   socials: [
     { name: "Instagram", href: "https://www.instagram.com/loveandlightngo" },
     { name: "TikTok", href: "https://www.tiktok.com/@loveandlightngo" },
@@ -92,10 +91,9 @@ export const hero = {
     volunteer: "Become a Volunteer",
     partner: "Partner with us →",
   },
-  // Generated from design/assets/photos by `npm run assets`.
   photo: {
-    src: "/images/hero-james-sunmi.jpg",
-    alt: "James and Sunmi, two Love & Light Foundation volunteers, smiling and pointing at the foundation logo on their T-shirts",
+    src: "/images/hero-students.jpg",
+    alt: "Three children looking into the camera at a Love & Light Foundation community outreach",
   } as Photo | null,
   chips: [
     { value: "5,000+", label: "families reached" },
@@ -411,7 +409,7 @@ export const events = {
         blurb: "Our monthly welfare relief project (make a random person smile).",
         photo: {
           src: "/images/event-love-in-action.jpg",
-          alt: "Children at a Love & Light Foundation community outreach",
+          alt: "Pupils in orange and blue school uniforms cheering with their arms raised around a cake at a Love & Light Foundation outreach",
         },
         // Same link as Partner With Us, as the client asked.
         cta: { label: "Partner with us →", href: links.partner },
@@ -520,7 +518,5 @@ export const news = {
 
 export const footer = {
   body: org.description,
-  contactLabel: "Contact",
-  followLabel: `Follow ${org.handle}`,
   copyright: `© 2026 ${org.legalName}. All rights reserved.`,
 } as const;
