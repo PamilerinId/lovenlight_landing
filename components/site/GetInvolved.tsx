@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { Button } from "@/components/ui/button";
 import { involved, links, partner } from "@/content/site";
 
@@ -36,7 +38,21 @@ export function GetInvolved() {
         {/* 1. Friends of Love & Light — the priority, full width */}
         <article className="glass-panel-strong flex flex-col rounded-panel p-[clamp(28px,3.3vw,48px)]">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <Eyebrow className="text-white/85">{friends.label}</Eyebrow>
+            <div className="flex items-center gap-3">
+              {/* The client asked for a logo on this panel and confirmed the
+                  main Love & Light logo is the one to use. A white chip keeps
+                  its green lettering legible against the green panel. */}
+              <span className="inline-flex shrink-0 rounded-xl bg-white px-2.5 py-1.5">
+                <Image
+                  src="/images/logo.png"
+                  alt=""
+                  width={355}
+                  height={192}
+                  className="h-8 w-auto nav:h-9"
+                />
+              </span>
+              <Eyebrow className="text-white/85">{friends.label}</Eyebrow>
+            </div>
             <span className="rounded-full border border-white/35 bg-white/10 px-3 py-1.5 text-[13px] font-semibold text-white">
               {friends.badge}
             </span>

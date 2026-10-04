@@ -87,6 +87,19 @@ export function Programmes() {
                     [COPY: one line about {item.title}]
                   </p>
                 )}
+                {item.cta && (
+                  <a
+                    href={item.cta.href}
+                    className={cn(
+                      "mt-auto pt-2 text-[14px] font-semibold nav:text-[15px]",
+                      item.strong
+                        ? "text-white hover:text-white/80"
+                        : "text-green hover:text-green-hover"
+                    )}
+                  >
+                    {item.cta.label}
+                  </a>
+                )}
               </div>
             </article>
           </li>

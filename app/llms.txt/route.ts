@@ -4,8 +4,10 @@ import {
   involved,
   leadership,
   links,
+  news,
   org,
   partner,
+  people,
   programmes,
   sdgs,
   story,
@@ -42,7 +44,7 @@ export function GET() {
     "",
     ...sdgs.map((g) => `- SDG ${g.id}: ${g.title} — ${g.href}`),
     "",
-    "## Leadership",
+    `## ${people.heading}`,
     "",
     `- ${leadership.founder.role}: ${leadership.founder.name}`,
     `- ${leadership.grandPatron.role}: ${leadership.grandPatron.name}`,
@@ -55,12 +57,33 @@ export function GET() {
     "",
     programmes.heading,
     "",
-    ...programmes.items.map((p) => `${p.n}. ${p.title}`),
+    ...programmes.items.map((p) => `${p.n}. ${p.title}${p.blurb ? `: ${p.blurb}` : ""}`),
     "",
     "## Events",
     "",
-    ...events.items.map((e) => `- ${e.title} (${e.date})`),
+    `### ${events.past.heading}`,
     "",
+    ...events.past.items.map(
+      (e) =>
+        `- ${e.title}${e.date ? ` (${e.date})` : ""}${"detail" in e && e.detail ? `: ${e.detail}` : ""}`
+    ),
+    "",
+    `### ${events.current.heading}`,
+    "",
+    ...events.current.items.map(
+      (e) =>
+        `- ${e.title}${e.date ? ` (${e.date})` : ""}${"blurb" in e && e.blurb ? `: ${e.blurb}` : ""}`
+    ),
+    "",
+    "## What people say",
+    "",
+    ...news.reviews.flatMap((r) => [
+      // A bare ">" between paragraphs keeps them separate in Markdown.
+      ...r.quote.flatMap((p, i) => (i === 0 ? [`> ${p}`] : [">", `> ${p}`])),
+      "",
+      `— ${r.name}, ${r.role}`,
+      "",
+    ]),
     "## Get involved",
     "",
     `### ${involved.volunteer.label}`,

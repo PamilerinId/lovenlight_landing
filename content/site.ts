@@ -53,10 +53,10 @@ export const org = {
 export const links = {
   friend: "https://forms.gle/JpWV2ySyA9g27Hc68",
   volunteer: "https://forms.gle/1QqAi7k2k63Jhjpv6",
-  // INTERIM: the client has not supplied a partnership link or a giving link.
-  // Both open an email so the buttons still work. Replace `donate` with a
-  // hosted payment link (Paystack, Flutterwave) — no backend is needed — and
-  // `partner` with a form or page when they decide.
+  // INTERIM: the client marked both links "done" in their checklist, but the
+  // URLs did not come through with it (likely hyperlinks lost in the paste).
+  // Both open an email meanwhile so every button still works. `partner` is
+  // shared by Partner With Us, the CSR card and Love in Action.
   partner: `mailto:${org.email}?subject=Partnership%20enquiry`,
   donate: `mailto:${org.email}?subject=Donation`,
   socials: [
@@ -121,13 +121,16 @@ export const story = {
   ],
   closing:
     "Together, we're changing lives, creating opportunities, and building hope.",
-  /**
-   * Portraits at the foot of "Our story". Deliberately placed here rather than
-   * beside the Friends of Love & Light panel, so the patrons never appear to
-   * be the ones asking for money.
-   */
-  peopleHeading: "Our people",
-  people: [
+} as const;
+
+/**
+ * "Our people" — its own section, placed after "What we do" at the client's
+ * request. Kept well away from the Friends of Love & Light panel so the
+ * patrons never appear to be the ones asking for money.
+ */
+export const people = {
+  heading: "Our people",
+  items: [
     {
       name: leadership.founder.name,
       role: leadership.founder.role,
@@ -145,21 +148,24 @@ export const story = {
       },
     },
     {
-      name: "Patrons & Matrons",
+      // Label wording requested by the client.
+      name: "Some of our Patrons and Matrons",
       role: null,
       wide: true,
       photo: {
         src: "/images/people-patrons.jpg",
-        alt: "The patrons and matrons of Love & Light Foundation photographed together at Rebirth, a Love and Light experience",
+        alt: "Some of the patrons and matrons of Love & Light Foundation photographed together at Rebirth, a Love and Light experience",
       },
     },
     {
+      // A general team photograph, at the client's request. The certificate
+      // photograph that was here now sits beside its subject's review.
       name: "Our volunteers",
       role: null,
       wide: true,
       photo: {
         src: "/images/people-volunteers.jpg",
-        alt: "A Love & Light Foundation volunteer receiving a certificate of recognition",
+        alt: "Love & Light Foundation volunteers and team members gathered outside a diocesan hall in Ibadan",
       },
     },
   ] satisfies ReadonlyArray<PersonCard>,
@@ -204,17 +210,21 @@ export type ProgrammeIconName =
   | "buildings"
   | "briefcase";
 
+/** A text link shown at the foot of a card. */
+export type CardLink = { label: string; href: string };
+
 export type Programme = {
   n: string;
   title: string;
   icon: ProgrammeIconName;
   /**
-   * One or two lines describing the programme. `null` until the client
-   * supplies copy — only CSR Execution has been written so far — and the card
-   * shows a labelled placeholder in its place.
+   * One or two lines describing the programme, as supplied by the client.
+   * Only spelling, capitalisation and punctuation were corrected; the wording
+   * is theirs. `null` renders a labelled placeholder.
    */
   blurb: string | null;
   photo: Photo | null;
+  cta?: CardLink;
   strong?: boolean;
 };
 
@@ -226,9 +236,8 @@ export const programmes = {
       n: "01",
       title: "Food Security",
       icon: "bowl",
-      blurb: null,
-      // Shares the Events photograph: this is the only food photography
-      // supplied. A second one would remove the repeat.
+      blurb:
+        "We have an annual Food Outreach every December and through that we have reached several families in need of immediate relief.",
       photo: {
         src: "/images/event-food-outreach.jpg",
         alt: "Women carrying bags of food staples received at a Love & Light Foundation community outreach",
@@ -238,7 +247,8 @@ export const programmes = {
       n: "02",
       title: "Education",
       icon: "book",
-      blurb: null,
+      blurb:
+        "Our Identity and School Outreach Tour has impacted the lives of several students across different states, including Ondo State, Oyo State, Lagos State, Ogun State etc.",
       photo: {
         src: "/images/programme-education.jpg",
         alt: "A school pupil in uniform speaking into a microphone at a school outreach",
@@ -248,7 +258,7 @@ export const programmes = {
       n: "03",
       title: "Youth Empowerment",
       icon: "sprout",
-      blurb: null,
+      blurb: "We give out grants, we organize skill acquisition programmes.",
       photo: {
         src: "/images/programme-youth.jpg",
         alt: "A Love & Light Foundation volunteer addressing rows of secondary school students in a school hall",
@@ -258,7 +268,8 @@ export const programmes = {
       n: "04",
       title: "Women Development",
       icon: "person",
-      blurb: null,
+      blurb:
+        "Our Transcend Ladies Conference is our major impact engine for women, among many others.",
       photo: {
         src: "/images/programme-women.jpg",
         alt: "Three women wearing project manager passes in front of a Sustainable Development Goals banner at a ladies conference",
@@ -268,68 +279,136 @@ export const programmes = {
       n: "05",
       title: "Community Development",
       icon: "buildings",
-      blurb: null,
+      blurb:
+        "We carry out school renovation projects, monthly welfare relief for communities and community interventions.",
       photo: {
         src: "/images/programme-community.jpg",
-        alt: "The Love & Light Foundation team and community members gathered outside a diocesan hall in Ibadan",
+        alt: "Love & Light Foundation volunteers gathered with members of a local community, including elders and children",
       },
     },
     {
       n: "06",
       title: "CSR Execution for Partners",
       icon: "briefcase",
+      // Wording as it appeared in the client-approved checklist.
       blurb:
-        "We help you execute your CSR projects for your company, landmark event, birthday or anniversaries",
+        "We help you execute your CSR projects for your company, landmark event, birthday, or anniversary.",
       photo: {
         src: "/images/programme-csr.jpg",
         alt: "Attendees filling a hall at a conference session",
       },
+      // The client asked for this to use the same link as Partner With Us.
+      cta: { label: "Partner with us →", href: links.partner },
       strong: true,
     },
   ] satisfies ReadonlyArray<Programme>,
 } as const;
 
 export type EventItem = {
-  date: string;
+  title: string;
+  /** Shown above the title. null when the client has not given one. */
+  date: string | null;
   /** ISO 8601 (may be partial, e.g. "2026-12") for <time dateTime>; null when unknown. */
   dateTime: string | null;
-  title: string;
+  /** A secondary line under the title, such as a list of locations. */
+  detail?: string;
+  blurb?: string;
   photo: Photo | null;
   placeholder: string;
+  cta?: CardLink;
 };
 
+/**
+ * Past events come first, then current opportunities, in the order the
+ * client asked for: the track record before the ask.
+ *
+ * The client listed seven past events. They are grouped into three cards
+ * by type because the photographs supplied are not labelled by location or
+ * year, so a card per school or per year would have to guess which picture
+ * belongs where. Grouping keeps every photo accurate. All seven names are
+ * still on the page.
+ */
 export const events = {
   eyebrow: "Events",
-  heading: "Current opportunities to create impact.",
-  items: [
-    {
-      date: "December 2026",
-      dateTime: "2026-12",
-      title: "Food Outreach 2026",
-      photo: {
-        src: "/images/event-food-outreach.jpg",
-        alt: "Women carrying bags of food staples received at a Love & Light Foundation community outreach",
+  past: {
+    heading: "Past events",
+    items: [
+      {
+        title: "Transcend Ladies Conference",
+        date: "March 2025",
+        dateTime: "2025-03",
+        photo: {
+          src: "/images/past-transcend.jpg",
+          alt: "Speakers seated on stage during a panel session at the Transcend Ladies Conference",
+        },
+        placeholder: "[PHOTO: Transcend Ladies Conference]",
       },
-      placeholder: "[PHOTO: Food Outreach]",
-    },
-    {
-      date: "2027",
-      dateTime: "2027",
-      title: "Global Skills for Youth 2027",
-      photo: {
-        src: "/images/event-global-skills.jpg",
-        alt: "Secondary school students in uniform cheering during a Love & Light Foundation school outreach",
+      {
+        title: "Food Outreach",
+        date: "2024 & 2025",
+        dateTime: null,
+        photo: {
+          src: "/images/past-food-outreach.jpg",
+          alt: "An elderly man holding a relief bag received at a Love & Light Foundation food outreach",
+        },
+        placeholder: "[PHOTO: Food Outreach]",
       },
-      placeholder: "[PHOTO: Global Skills for Youth]",
-    },
-    {
-      date: "[DATE]",
-      dateTime: null,
-      title: "Legacy Project: School Renovation",
-      photo: null,
-      placeholder: "[PHOTO: School Renovation]",
-    },
-  ] satisfies ReadonlyArray<EventItem>,
+      {
+        title: "School Outreach",
+        date: null,
+        dateTime: null,
+        detail: "Mowe, Ogun State · Akure, Ondo State · Ibadan, Oyo State · Ogudu, Lagos State",
+        photo: {
+          src: "/images/past-school-outreach.jpg",
+          alt: "Students in green checked uniforms gathered for a Love & Light Foundation school outreach",
+        },
+        placeholder: "[PHOTO: School Outreach]",
+      },
+    ] satisfies ReadonlyArray<EventItem>,
+  },
+  current: {
+    heading: "Current opportunities to create impact.",
+    items: [
+      {
+        title: "Food Outreach 2026",
+        date: "December 2026",
+        dateTime: "2026-12",
+        // The client is sending the event flier for this slot.
+        photo: null,
+        placeholder: "[GRAPHIC: Food Outreach 2026 flier]",
+      },
+      {
+        title: "Global Skills for Youth 2027",
+        date: "2027",
+        dateTime: "2027",
+        photo: {
+          src: "/images/event-global-skills.jpg",
+          alt: "Secondary school students in uniform cheering during a Love & Light Foundation school outreach",
+        },
+        placeholder: "[PHOTO: Global Skills for Youth]",
+      },
+      {
+        title: "Legacy Project: School Renovation",
+        date: "2027",
+        dateTime: "2027",
+        photo: null,
+        placeholder: "[PHOTO: School Renovation]",
+      },
+      {
+        title: "Love in Action",
+        date: "Monthly",
+        dateTime: null,
+        blurb: "Our monthly welfare relief project (make a random person smile).",
+        photo: {
+          src: "/images/event-love-in-action.jpg",
+          alt: "Children at a Love & Light Foundation community outreach",
+        },
+        placeholder: "[PHOTO: Love in Action]",
+        // Same link as Partner With Us, as the client asked.
+        cta: { label: "Partner with us →", href: links.partner },
+      },
+    ] satisfies ReadonlyArray<EventItem>,
+  },
 } as const;
 
 export const involved = {
@@ -370,24 +449,44 @@ export const partner = {
 } as const;
 
 /**
- * News & Stories. The client is sending two reviews from past projects; until
- * they arrive each slot renders a labelled placeholder, the same convention the
- * handoff uses for missing photos and dates.
+ * News & Stories: reviews supplied by the client. Quotes are as written,
+ * except "Love & light" corrected to the organisation's own capitalisation.
  */
 export type Review = {
-  quote: string;
+  /** One string per paragraph. */
+  quote: ReadonlyArray<string>;
   name: string;
-  project: string;
+  role: string;
+  photo?: Photo;
 };
 
-/** Empty until the client sends the two reviews; typed so the section compiles. */
-const reviews: ReadonlyArray<Review> = [];
+const reviews: ReadonlyArray<Review> = [
+  {
+    name: "Agness A. Mnzava",
+    role: "Tanzanian Delegate, Grant and Research Lead",
+    quote: [
+      "My journey with Love & Light Foundation has been deeply meaningful to me. Winning the Love & Light Essay Competition gave me the confidence to see that my ideas and voice could genuinely matter. Through the Pad Bank Project, I also had the opportunity to witness how a simple initiative can bring dignity, support and hope to girls in ways that feel very real and personal.",
+      "Love & Light has helped me grow not only as a young professional, but also as someone who wants to use her voice and skills to serve others. I am grateful for the people, experiences and opportunities that have reminded me that meaningful change often begins with simply caring enough to act.",
+    ],
+  },
+  {
+    name: "Toluwalade Arijeniwa",
+    role: "Team Lead, Core Impact Team",
+    quote: [
+      "Being part of Love & Light has been a beautiful journey of service, growth, and genuine community. It has given me the opportunity to serve others, build meaningful relationships, and be part of initiatives that make a real difference. I'm grateful to be part of a community that truly lives out the values of love, compassion, and impact.",
+    ],
+    // The certificate in this photograph carries her name.
+    photo: {
+      src: "/images/review-toluwalade.jpg",
+      alt: "Toluwalade Arijeniwa receiving a Love & Light Foundation certificate of recognition",
+    },
+  },
+];
 
 export const news = {
   eyebrow: "News & stories",
   heading: "What people say about the work.",
   reviews,
-  placeholders: ["[REVIEW 1: quote, name, project]", "[REVIEW 2: quote, name, project]"],
 } as const;
 
 export const footer = {

@@ -112,9 +112,8 @@ const PHOTOS = [
   // circular fade mask.
   { src: "hero-james-sunmi.jpg", out: "public/images/hero-james-sunmi.jpg", square: "top", width: 1400 },
 
-  // "What we do" cards. Each is at most ~470px wide on screen.
-  // Food Security reuses the food-outreach photograph: it is the only food
-  // photography supplied. A second one would remove the repeat with Events.
+  // "What we do" cards. Each is at most ~470px wide on screen. Food Security
+  // uses the food-outreach photograph generated in the Events block below.
   { src: "programme-education.jpg", out: "public/images/programme-education.jpg", width: 1000 },
   { src: "volunteer-school-hall.jpg", out: "public/images/programme-youth.jpg", width: 1000 },
   { src: "programme-women.jpg", out: "public/images/programme-women.jpg", width: 1000 },
@@ -127,9 +126,20 @@ const PHOTOS = [
   { src: "people-patrons.jpg", out: "public/images/people-patrons.jpg", width: 1200 },
   { src: "people-volunteers.jpg", out: "public/images/people-volunteers.jpg", width: 1200 },
 
-  // Events.
+  // Events: current opportunities. Food Outreach 2026 waits for the client's
+  // flier; the food-outreach photograph below now serves only the Food
+  // Security card.
   { src: "event-food-outreach.jpg", out: "public/images/event-food-outreach.jpg", width: 1200 },
   { src: "event-global-skills.jpg", out: "public/images/event-global-skills.jpg", width: 1200 },
+  { src: "event-love-in-action.jpg", out: "public/images/event-love-in-action.jpg", width: 1000 },
+
+  // Events: past. One photograph per grouped card.
+  { src: "past-transcend.jpg", out: "public/images/past-transcend.jpg", width: 1000 },
+  { src: "past-food-outreach.jpg", out: "public/images/past-food-outreach.jpg", width: 1000 },
+  { src: "past-school-outreach.jpg", out: "public/images/past-school-outreach.jpg", width: 1000 },
+
+  // News & Stories: shown beside the review from the person it pictures.
+  { src: "review-toluwalade.jpg", out: "public/images/review-toluwalade.jpg", width: 1200 },
 ];
 
 for (const p of PHOTOS) {

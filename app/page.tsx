@@ -5,6 +5,7 @@ import { Hero } from "@/components/site/Hero";
 import { ImpactStrip } from "@/components/site/ImpactStrip";
 import { Nav } from "@/components/site/Nav";
 import { News } from "@/components/site/News";
+import { People } from "@/components/site/People";
 import { Programmes } from "@/components/site/Programmes";
 import { Story } from "@/components/site/Story";
 import { SectionRule } from "@/components/site/primitives";
@@ -25,6 +26,8 @@ export default function HomePage() {
         <Story />
         <SectionRule />
         <Programmes />
+        <SectionRule />
+        <People />
         <SectionRule />
         <Events />
         <SectionRule />

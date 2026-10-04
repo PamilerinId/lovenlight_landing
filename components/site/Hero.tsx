@@ -22,10 +22,13 @@ export function Hero() {
         >
           {hero.title}
         </h1>
-        {/* The registered name in full, which the client asked to appear on
-            the first page. It also gives search engines the legal name in
-            visible text, not just in the footer and structured data. */}
-        <p className="mt-4 text-[15px] leading-[1.5] font-medium text-body">{org.legalName}</p>
+        {/* The registered name in full. The client asked for it on the first
+            page, then for it to be bigger and more prominent: it now sits
+            second in the hierarchy, under the headline and above the body.
+            It also gives search engines the legal name in visible text. */}
+        <p className="mt-5 max-w-[600px] text-[clamp(19px,1.8vw,26px)] leading-[1.25] font-semibold tracking-[-0.015em] text-ink">
+          {org.legalName}
+        </p>
         <p className="mt-6 max-w-[560px] text-lg leading-[1.6] text-body">{hero.body}</p>
         <div className="mt-10 flex flex-wrap items-center gap-[14px]">
           <Button asChild variant="primary" size="primary">
