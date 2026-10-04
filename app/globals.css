@@ -137,6 +137,19 @@ body:has([data-hero-dark]) .site-nav .nav-link:hover {
   color: rgba(255, 255, 255, 0.75);
 }
 
+/* Feathered edges on all four sides: the hero photograph melts into the
+   blurred fill around it instead of ending on a hard line. */
+@utility edge-fade {
+  -webkit-mask-image:
+    linear-gradient(to right, transparent, #000 10%, #000 90%, transparent),
+    linear-gradient(to bottom, transparent, #000 10%, #000 90%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent, #000 10%, #000 90%, transparent),
+    linear-gradient(to bottom, transparent, #000 10%, #000 90%, transparent);
+  mask-composite: intersect;
+}
+
 /* Circular portrait whose edges dissolve into whatever is behind it. */
 @utility photo-fade {
   -webkit-mask-image: radial-gradient(circle, #000 55%, rgba(0, 0, 0, 0) 100%);

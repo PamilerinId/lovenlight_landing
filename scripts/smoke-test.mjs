@@ -104,6 +104,9 @@ async function run() {
     }
   }
 
+  // 3d. The hero portrait is the "Become a Volunteer" button.
+  check(/<a[^>]*aria-label="Become a Volunteer"[^>]*>/.test(home) && /<a[^>]*href="https:\/\/forms\.gle\/1QqAi7k2k63Jhjpv6"[^>]*aria-label="Become a Volunteer"|<a[^>]*aria-label="Become a Volunteer"[^>]*href="https:\/\/forms\.gle\/1QqAi7k2k63Jhjpv6"/.test(home), "hero portrait should be a link labelled Become a Volunteer to the volunteer form");
+
   // 3c. Footer: the four social links are icons with accessible names.
   const footerHtml = home.slice(home.indexOf("<footer"));
   for (const network of ["Instagram", "TikTok", "LinkedIn", "YouTube"]) {

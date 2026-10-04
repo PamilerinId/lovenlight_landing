@@ -122,6 +122,15 @@ await sharp("design/assets/friends-logo.png")
   .toFile("public/images/friends-logo.webp");
 outputs.push("public/images/friends-logo.webp");
 
+// Tiny blurred copy of the hero background (about 0.5 KB). It fills the
+// space around the full, uncropped photo so the hero has no flat bands.
+await sharp("design/assets/photos/hero-students.jpg")
+  .resize(48)
+  .blur(2)
+  .jpeg({ quality: 60 })
+  .toFile("public/images/hero-students-blur.jpg");
+outputs.push("public/images/hero-students-blur.jpg");
+
 for (const p of PHOTOS) {
   let img = sharp(`${SRC}/photos/${p.src}`).rotate();
   if (p.square) {

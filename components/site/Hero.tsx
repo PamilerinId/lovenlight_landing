@@ -18,7 +18,8 @@ const tight = "px-4 nav:px-7";
 /**
  * The cover of the story: a full-screen photograph of the children behind the
  * headline, with the two volunteers in front, on the right, and the navigation
- * floating over the top.
+ * floating over the top. The volunteers' portrait doubles as the
+ * "Become a Volunteer" button.
  *
  * The photograph is dimmed by a flat dark layer so white text stays readable
  * over its brightest areas (a flat layer rather than a gradient, which the
@@ -39,20 +40,34 @@ export function Hero() {
       data-hero-dark
       className="relative isolate flex min-h-[100svh] items-center overflow-hidden bg-ink"
     >
-      <Image
-        src={hero.background.src}
-        alt=""
-        fill
-        sizes="100vw"
-        loading="eager"
-        fetchPriority="high"
-        // Anchored low and scaled up from the bottom, which trims about a
-        // fifth off the top and so crops out the "Made to Love" watermark
-        // in the photograph's top-left corner.
-        style={{ objectPosition: "50% 100%" }}
-        className="-z-20 origin-bottom scale-[1.14] object-cover"
+      {/* Behind, on desktop: a tiny blurred copy, stretched to fill the
+          screen, so the bars beside the photo are soft colour rather than
+          flat. Not on phones: the photo spans the full width there, and
+          stretching the copy down a tall screen turns the light shirt at the
+          bottom of the picture into a pale strip. */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-30 hidden scale-110 bg-cover bg-center blur-2xl nav:block"
+        style={{ backgroundImage: "url(/images/hero-students-blur.jpg)" }}
       />
-      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-ink/70" />
+      {/* The photograph itself, uncropped and scaled down to fit inside the
+          screen: full width on phones (sitting at the top, behind the
+          headline), full height on desktop. Its edges feather into the
+          blurred fill so there is no hard line. */}
+      <div className="absolute inset-0 -z-20 flex items-start justify-center nav:items-center">
+        <div className="edge-fade relative aspect-[3/2] w-full nav:w-[min(100%,calc(100svh*1.5))]">
+          <Image
+            src={hero.background.src}
+            alt=""
+            fill
+            sizes="100vw"
+            loading="eager"
+            fetchPriority="high"
+            className="object-cover"
+          />
+        </div>
+      </div>
+      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-ink/80" />
       <Glow className="-z-10 top-[-160px] right-[-120px]" />
 
       <div className="relative w-full px-page pt-28 pb-14 nav:pt-32 nav:pb-20">
@@ -94,11 +109,6 @@ export function Hero() {
                   Donate now
                 </a>
               </Button>
-              <Button asChild variant="secondary" size="secondary" className={`${onDark} ${tight}`}>
-                <a href={links.volunteer} {...linkProps(links.volunteer)}>
-                  {hero.ctas.volunteer}
-                </a>
-              </Button>
               <Button
                 asChild
                 variant="link"
@@ -113,33 +123,49 @@ export function Hero() {
           </div>
 
           <div className="relative mx-auto aspect-square w-[78%] max-w-[420px] nav:w-full nav:max-w-[460px]">
-            <div className="depth-photo photo-fade absolute inset-0 overflow-hidden rounded-full">
-              <PhotoSlot
-                photo={hero.photo}
-                sizes="(max-width: 900px) 78vw, 460px"
-                className="rounded-full"
-              />
-            </div>
-            <div className="depth-chip-a absolute bottom-[3%] -left-[17%] hidden nav:block">
+            {/* The portrait is also the "Become a Volunteer" button: the whole
+                circle is the link, and a pill on its lower edge says so, so it
+                reads as tappable rather than decorative. */}
+            <a
+              href={links.volunteer}
+              {...linkProps(links.volunteer)}
+              aria-label={hero.ctas.volunteer}
+              className="group absolute inset-0 rounded-full outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-ink"
+            >
+              <span className="depth-photo photo-fade absolute inset-0 block overflow-hidden rounded-full transition-transform duration-500 group-hover:scale-[1.03]">
+                <PhotoSlot
+                  photo={hero.photo}
+                  sizes="(max-width: 900px) 78vw, 460px"
+                  className="rounded-full"
+                />
+              </span>
+              <span className="absolute -bottom-3 left-1/2 inline-flex -translate-x-1/2 items-center gap-1.5 rounded-full bg-white px-5 py-3 text-[14px] font-semibold whitespace-nowrap text-green shadow-[0_8px_24px_rgba(0,0,0,0.3)] transition-colors group-hover:bg-green group-hover:text-white nav:text-[15px]">
+                {hero.ctas.volunteer}
+                <span aria-hidden="true">→</span>
+              </span>
+            </a>
+            {/* Stat chips, now on phones too: smaller there, and held inside the
+                screen edge. Both sit clear of faces and hands. */}
+            <div className="depth-chip-a pointer-events-none absolute top-[2%] -left-[8%] nav:top-auto nav:bottom-[3%] nav:-left-[17%]">
               <div
-                className="intro glass-chip flex flex-col gap-0.5 rounded-chip px-[22px] py-4"
+                className="intro glass-chip flex flex-col gap-0.5 rounded-[14px] px-3 py-2.5 nav:rounded-chip nav:px-[22px] nav:py-4"
                 style={delay(450)}
               >
-                <span className="text-[28px] font-semibold tracking-[-0.03em] text-ink">
+                <span className="text-[20px] font-semibold tracking-[-0.03em] text-ink nav:text-[28px]">
                   {hero.chips[0].value}
                 </span>
-                <span className="text-[13px] text-body">{hero.chips[0].label}</span>
+                <span className="text-[11px] text-body nav:text-[13px]">{hero.chips[0].label}</span>
               </div>
             </div>
-            <div className="depth-chip-b absolute top-[6%] -right-[4%] hidden nav:block">
+            <div className="depth-chip-b pointer-events-none absolute top-[2%] -right-[8%] nav:top-[6%] nav:-right-[4%]">
               <div
-                className="intro glass-chip flex flex-col gap-0.5 rounded-chip px-[22px] py-4"
+                className="intro glass-chip flex flex-col gap-0.5 rounded-[14px] px-3 py-2.5 nav:rounded-chip nav:px-[22px] nav:py-4"
                 style={delay(600)}
               >
-                <span className="text-[28px] font-semibold tracking-[-0.03em] text-ink">
+                <span className="text-[20px] font-semibold tracking-[-0.03em] text-ink nav:text-[28px]">
                   {hero.chips[1].value}
                 </span>
-                <span className="text-[13px] text-body">{hero.chips[1].label}</span>
+                <span className="text-[11px] text-body nav:text-[13px]">{hero.chips[1].label}</span>
               </div>
             </div>
           </div>
