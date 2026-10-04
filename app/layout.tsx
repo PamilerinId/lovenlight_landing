@@ -1,7 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 
-import { jsonLdString } from "@/lib/seo/jsonld";
+import { Footer } from "@/components/site/Footer";
+import { Motion } from "@/components/site/Motion";
+import { Nav } from "@/components/site/Nav";
+import { JsonLd, orgGraph } from "@/lib/seo/jsonld";
 import { OG_IMAGE_PATH, SITE_DESCRIPTION, SITE_NAME, SITE_TITLE, SITE_URL } from "@/lib/seo/config";
 
 import "./globals.css";
@@ -63,15 +66,42 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
+/**
+ * Runs before first paint. It marks <html> as able to animate, which is the
+ * only condition under which reveal targets start hidden (see globals.css),
+ * so the page is fully visible without JavaScript.
+ */
+const motionFlag = "document.documentElement.classList.add('js')";
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en-NG" className={manrope.variable}>
+    // suppressHydrationWarning: the inline script above adds a class to
+    // <html> before React hydrates, which is intended.
+    // data-scroll-behavior: in-page links glide, but moving between pages
+    // jumps straight to the top instead of gliding up from where you were.
+    <html
+      lang="en-NG"
+      className={manrope.variable}
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
+    >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: motionFlag }} />
+      </head>
       <body>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: jsonLdString() }}
-        />
-        {children}
+        <JsonLd data={orgGraph()} />
+        <div className="relative mx-auto w-full max-w-[1440px] overflow-hidden">
+          <a
+            href="#main"
+            className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:rounded-full focus:bg-ground focus:px-4 focus:py-2 focus:text-green focus:ring-2 focus:ring-green"
+          >
+            Skip to content
+          </a>
+          <Nav />
+          <main id="main">{children}</main>
+          <Footer />
+        </div>
+        <Motion />
       </body>
     </html>
   );

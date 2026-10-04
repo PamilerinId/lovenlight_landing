@@ -4,7 +4,8 @@
  * /llms.txt, so copy can never drift between them.
  *
  * Copy is transcribed verbatim from design/HANDOFF.md and the client brief.
- * Do not paraphrase. Missing content stays a labelled placeholder.
+ * Do not paraphrase or invent facts. A missing photograph renders as an
+ * illustrated panel (see ArtPanel), never as an empty box.
  */
 
 export type Photo = { src: string; alt: string };
@@ -67,15 +68,19 @@ export const links = {
   ],
 } as const;
 
+/**
+ * Section links are absolute ("/#about") so they work from every page, not
+ * only the home page. Contact stays relative: the footer is on every page.
+ */
 export const nav = {
   items: [
-    { label: "About", href: "#about" },
-    { label: "Programmes", href: "#programmes" },
-    { label: "Events", href: "#events" },
-    { label: "News & Stories", href: "#news" },
+    { label: "About", href: "/#about" },
+    { label: "Programmes", href: "/#programmes" },
+    { label: "Events", href: "/#events" },
+    { label: "News & Stories", href: "/#news" },
     { label: "Contact", href: "#contact" },
   ],
-  cta: { label: "Get involved", href: "#involved" },
+  cta: { label: "Get involved", href: "/get-involved" },
 } as const;
 
 export const hero = {
@@ -92,7 +97,6 @@ export const hero = {
     src: "/images/hero-james-sunmi.jpg",
     alt: "James and Sunmi, two Love & Light Foundation volunteers, smiling and pointing at the foundation logo on their T-shirts",
   } as Photo | null,
-  photoPlaceholder: "[PHOTO: James & Sunmi]",
   chips: [
     { value: "5,000+", label: "families reached" },
     { value: "80+", label: "volunteers" },
@@ -100,7 +104,8 @@ export const hero = {
 } as const;
 
 export const impact = {
-  heading: "Our Impact in Numbers",
+  eyebrow: "Chapter 02 · Our reach so far",
+  heading: "Our impact in numbers.",
   items: [
     { value: "5,000+", label: "Families Reached" },
     { value: "1,500+", label: "Conference Attendees" },
@@ -112,7 +117,7 @@ export const impact = {
 } as const;
 
 export const story = {
-  eyebrow: "Our story",
+  eyebrow: "Chapter 01 · Our story",
   heading:
     "We believe where you're born should never determine how far you can go.",
   paragraphs: [
@@ -129,7 +134,9 @@ export const story = {
  * patrons never appear to be the ones asking for money.
  */
 export const people = {
-  heading: "Our people",
+  eyebrow: "Chapter 04 · Our people",
+  // New connective heading for the story; flagged for client approval.
+  heading: "The people behind the work.",
   items: [
     {
       name: leadership.founder.name,
@@ -220,7 +227,7 @@ export type Programme = {
   /**
    * One or two lines describing the programme, as supplied by the client.
    * Only spelling, capitalisation and punctuation were corrected; the wording
-   * is theirs. `null` renders a labelled placeholder.
+   * is theirs.
    */
   blurb: string | null;
   photo: Photo | null;
@@ -229,7 +236,7 @@ export type Programme = {
 };
 
 export const programmes = {
-  eyebrow: "What we do",
+  eyebrow: "Chapter 03 · What we do",
   heading: "Six ways we turn compassion into action.",
   items: [
     {
@@ -313,8 +320,12 @@ export type EventItem = {
   /** A secondary line under the title, such as a list of locations. */
   detail?: string;
   blurb?: string;
+  /**
+   * When there is no photograph yet, the card shows an illustrated panel
+   * built from this line icon instead, so it never looks empty.
+   */
   photo: Photo | null;
-  placeholder: string;
+  art?: ProgrammeIconName;
   cta?: CardLink;
 };
 
@@ -329,9 +340,10 @@ export type EventItem = {
  * still on the page.
  */
 export const events = {
-  eyebrow: "Events",
   past: {
-    heading: "Past events",
+    eyebrow: "Chapter 05 · Past events",
+    // New connective heading for the story; flagged for client approval.
+    heading: "Where we've been.",
     items: [
       {
         title: "Transcend Ladies Conference",
@@ -341,7 +353,6 @@ export const events = {
           src: "/images/past-transcend.jpg",
           alt: "Speakers seated on stage during a panel session at the Transcend Ladies Conference",
         },
-        placeholder: "[PHOTO: Transcend Ladies Conference]",
       },
       {
         title: "Food Outreach",
@@ -351,7 +362,6 @@ export const events = {
           src: "/images/past-food-outreach.jpg",
           alt: "An elderly man holding a relief bag received at a Love & Light Foundation food outreach",
         },
-        placeholder: "[PHOTO: Food Outreach]",
       },
       {
         title: "School Outreach",
@@ -362,20 +372,21 @@ export const events = {
           src: "/images/past-school-outreach.jpg",
           alt: "Students in green checked uniforms gathered for a Love & Light Foundation school outreach",
         },
-        placeholder: "[PHOTO: School Outreach]",
       },
     ] satisfies ReadonlyArray<EventItem>,
   },
   current: {
+    eyebrow: "Chapter 06 · What's next",
     heading: "Current opportunities to create impact.",
     items: [
       {
         title: "Food Outreach 2026",
         date: "December 2026",
         dateTime: "2026-12",
-        // The client is sending the event flier for this slot.
+        // The client is sending the event flier for this slot. Until then the
+        // card shows an illustration built from the food icon.
         photo: null,
-        placeholder: "[GRAPHIC: Food Outreach 2026 flier]",
+        art: "bowl",
       },
       {
         title: "Global Skills for Youth 2027",
@@ -385,14 +396,13 @@ export const events = {
           src: "/images/event-global-skills.jpg",
           alt: "Secondary school students in uniform cheering during a Love & Light Foundation school outreach",
         },
-        placeholder: "[PHOTO: Global Skills for Youth]",
       },
       {
         title: "Legacy Project: School Renovation",
         date: "2027",
         dateTime: "2027",
         photo: null,
-        placeholder: "[PHOTO: School Renovation]",
+        art: "buildings",
       },
       {
         title: "Love in Action",
@@ -403,7 +413,6 @@ export const events = {
           src: "/images/event-love-in-action.jpg",
           alt: "Children at a Love & Light Foundation community outreach",
         },
-        placeholder: "[PHOTO: Love in Action]",
         // Same link as Partner With Us, as the client asked.
         cta: { label: "Partner with us →", href: links.partner },
       },
@@ -440,6 +449,26 @@ export const involved = {
     body: "Your time, skills, and passion can create lasting change. Whether you're a student, young professional, creative, entrepreneur, or simply someone who wants to make a difference, there's a place for you at Love & Light Foundation. Join our community of volunteers and help us deliver outreaches, empower communities, organize impactful events, and bring hope to those who need it most.",
     cta: "Become a Volunteer",
   },
+} as const;
+
+/**
+ * The home page closes on a condensed version of the ask; the full detail
+ * lives on /get-involved. Headings reuse the brief ("Ways to Get Involved")
+ * and the original design ("Your part in the story").
+ */
+export const ask = {
+  eyebrow: "Chapter 08 · Your part in the story",
+  heading: "Ways to get involved.",
+  more: { label: "See every way to help →", href: "/get-involved" },
+} as const;
+
+export const getInvolvedPage = {
+  path: "/get-involved",
+  eyebrow: "Get involved",
+  heading: "Your part in the story.",
+  /** Meta description only; not shown on the page. Facts from the copy above. */
+  description:
+    "Become a Friend of Love & Light from ₦2,000 a month, partner with us on CSR programmes, or volunteer your time and skills with Love & Light Foundation in Nigeria and Tanzania.",
 } as const;
 
 export const partner = {
@@ -484,7 +513,7 @@ const reviews: ReadonlyArray<Review> = [
 ];
 
 export const news = {
-  eyebrow: "News & stories",
+  eyebrow: "Chapter 07 · News & stories",
   heading: "What people say about the work.",
   reviews,
 } as const;

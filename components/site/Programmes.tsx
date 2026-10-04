@@ -1,65 +1,61 @@
 import Image from "next/image";
+import type { CSSProperties } from "react";
 
 import { programmes } from "@/content/site";
 import { cn } from "@/lib/utils";
 
-import { Eyebrow } from "./primitives";
+import { SectionHeader, sectionClass } from "./primitives";
 import { ProgrammeIcon } from "./ProgrammeIcon";
 
 /**
- * "What we do" — six cards, each with a photograph and a line of explanation.
+ * Chapter 03 — how the work is done, in six programmes.
  *
- * This returned to cards once the client supplied imagery and copy. The
- * earlier minimal list existed because a card holding only an icon and a title
- * had nothing to justify its height; with a photo and a description it does.
- * Two columns on phones keeps the extra height in check.
+ * Phones: one compact row per programme, a square photo beside the title and
+ * description. All six stay visible (the client did not want this section
+ * hidden behind a toggle), at about half the height of stacked cards.
+ * Desktop: a three-column grid of photo cards.
  */
 export function Programmes() {
   return (
-    <section id="programmes" aria-labelledby="programmes-heading" className="px-page py-[110px]">
-      <Eyebrow>{programmes.eyebrow}</Eyebrow>
-      <h2
+    <section id="programmes" aria-labelledby="programmes-heading" className={sectionClass}>
+      <SectionHeader
         id="programmes-heading"
-        className="mt-5 max-w-[900px] text-[clamp(36px,3.6vw,52px)] leading-[1.08] font-medium tracking-[-0.03em] text-ink"
-      >
-        {programmes.heading}
-      </h2>
+        eyebrow={programmes.eyebrow}
+        title={programmes.heading}
+      />
 
-      <ul className="mt-10 grid grid-cols-2 gap-3 nav:mt-16 nav:grid-cols-3 nav:gap-5">
-        {programmes.items.map((item) => (
-          <li key={item.n}>
+      <ul className="mt-8 flex flex-col gap-3 nav:mt-16 nav:grid nav:grid-cols-3 nav:gap-5">
+        {programmes.items.map((item, i) => (
+          <li key={item.n} data-reveal style={{ "--i": i % 3 } as CSSProperties}>
             <article
               className={cn(
-                "flex h-full flex-col overflow-hidden rounded-card",
+                "grid h-full grid-cols-[92px_1fr] gap-4 overflow-hidden rounded-card p-3 nav:flex nav:flex-col nav:gap-0 nav:p-0",
                 item.strong ? "glass-panel-strong" : "glass"
               )}
             >
-              <div className="relative aspect-[4/3] w-full shrink-0 overflow-hidden">
-                {item.photo ? (
+              <div className="relative aspect-square w-full overflow-hidden rounded-[14px] nav:aspect-[4/3] nav:rounded-none">
+                {item.photo && (
                   <Image
                     src={item.photo.src}
                     alt={item.photo.alt}
                     fill
-                    sizes="(max-width: 900px) 46vw, 420px"
+                    sizes="(max-width: 900px) 92px, 420px"
                     className="object-cover"
                   />
-                ) : (
-                  <div className="absolute inset-0 flex items-center justify-center bg-[rgba(30,122,44,0.05)] p-3 text-center text-[12px] text-muted">
-                    [PHOTO: {item.title}]
-                  </div>
                 )}
               </div>
 
-              <div className="flex flex-1 flex-col gap-2 p-4 nav:gap-2.5 nav:p-6">
-                <div className="flex items-center justify-between gap-2">
+              <div className="flex flex-col gap-1.5 py-1 nav:flex-1 nav:gap-2.5 nav:p-6">
+                {/* Icon and number: desktop only, where there is room. */}
+                <div className="hidden items-center justify-between gap-2 nav:flex">
                   <ProgrammeIcon
                     name={item.icon}
-                    className={cn("size-5 nav:size-6", item.strong ? "text-white" : "text-green")}
+                    className={cn("size-6", item.strong ? "text-white" : "text-green")}
                   />
                   <span
                     className={cn(
                       "text-[13px] font-semibold tabular-nums",
-                      item.strong ? "text-white/80" : "text-green"
+                      item.strong ? "text-white" : "text-green"
                     )}
                   >
                     {item.n}
@@ -73,25 +69,21 @@ export function Programmes() {
                 >
                   {item.title}
                 </h3>
-                {item.blurb ? (
+                {item.blurb && (
                   <p
                     className={cn(
-                      "text-[14px] leading-[1.55] nav:text-[15px]",
+                      "text-[14px] leading-[1.5] nav:text-[15px] nav:leading-[1.55]",
                       item.strong ? "text-white/90" : "text-body"
                     )}
                   >
                     {item.blurb}
-                  </p>
-                ) : (
-                  <p className="text-[13px] leading-[1.5] text-muted">
-                    [COPY: one line about {item.title}]
                   </p>
                 )}
                 {item.cta && (
                   <a
                     href={item.cta.href}
                     className={cn(
-                      "mt-auto pt-2 text-[14px] font-semibold nav:text-[15px]",
+                      "mt-auto pt-1 text-[14px] font-semibold nav:pt-2 nav:text-[15px]",
                       item.strong
                         ? "text-white hover:text-white/80"
                         : "text-green hover:text-green-hover"

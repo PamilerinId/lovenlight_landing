@@ -1,130 +1,126 @@
 import Image from "next/image";
+import type { CSSProperties } from "react";
 
 import { Button } from "@/components/ui/button";
 import { involved, links, partner } from "@/content/site";
 
-import { Eyebrow, Glow } from "./primitives";
+import { Eyebrow } from "./primitives";
 import { CheckIcon } from "./ProgrammeIcon";
 
+/** The Love & Light logo on a white chip, legible against the green panel. */
+export function FriendsLogo() {
+  return (
+    <span className="inline-flex shrink-0 rounded-xl bg-white px-2.5 py-1.5">
+      <Image src="/images/logo.png" alt="" width={355} height={192} className="h-8 w-auto nav:h-9" />
+    </span>
+  );
+}
+
 /**
- * "Get involved" in the client's stated order of priority: Friends first as a
- * wide green panel, then Partnership and Volunteer side by side beneath it.
+ * The full set of ways to help, in the client's order of priority: Friends
+ * first as a wide green panel, then Partnership and Volunteer side by side.
+ * Used on /get-involved; the home page closes on a condensed version (Ask).
  *
- * The closing "Partner with us" band was folded in here, which is why the
- * partnership copy still comes from `partner`.
- *
- * No photographs: the Founder and Grand Patron moved to "Our people" inside
- * Our story, so that this section, which is where the money is asked for,
- * never appears to be fronted by the patrons.
+ * No photographs on purpose: this is where money is asked for, so it must
+ * never appear to be fronted by the patrons.
  */
-export function GetInvolved() {
+export function GetInvolvedPanels({ heading: H = "h2" }: { heading?: "h2" | "h3" }) {
   const { friends, volunteer } = involved;
 
   return (
-    <section
-      id="involved"
-      aria-labelledby="involved-heading"
-      className="relative px-page py-[110px]"
-    >
-      <Glow className="top-[40px] right-[-120px]" />
-      <Eyebrow as="p" className="relative">
-        {involved.eyebrow}
-      </Eyebrow>
-      <h2 id="involved-heading" className="sr-only">
-        Ways to get involved
-      </h2>
+    <div className="relative flex flex-col gap-4 nav:gap-5">
+      {/* 1. Friends of Love & Light — the priority, full width */}
+      <article
+        id="friends"
+        data-reveal
+        className="glass-panel-strong flex scroll-mt-6 flex-col rounded-panel p-6 nav:p-[clamp(28px,3.3vw,48px)]"
+      >
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <FriendsLogo />
+            <Eyebrow className="text-white/90">{friends.label}</Eyebrow>
+          </div>
+          <span className="rounded-full border border-white/50 px-3 py-1.5 text-[13px] font-semibold text-white">
+            {friends.badge}
+          </span>
+        </div>
+        <H className="mt-5 max-w-[640px] text-[clamp(26px,2.5vw,36px)] leading-[1.1] font-medium tracking-[-0.03em] text-white">
+          {friends.heading}
+        </H>
+        <div className="mt-5 grid gap-x-12 gap-y-6 nav:mt-6 nav:grid-cols-2">
+          <p className="text-[15px] leading-[1.7] text-white/90 nav:text-base">{friends.body}</p>
+          <ul className="flex flex-col gap-3">
+            {friends.perks.map((perk) => (
+              <li key={perk} className="flex items-center gap-3 text-[15px] font-medium text-white">
+                <CheckIcon />
+                {perk}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <p className="mt-6 max-w-[760px] text-[15px] leading-[1.6] text-white/90">
+          {friends.closing}
+        </p>
+        <div className="mt-8 flex flex-wrap gap-3 nav:mt-9">
+          <Button asChild variant="inverse" size="primary">
+            <a href={links.friend} target="_blank" rel="noopener">
+              {friends.cta}
+            </a>
+          </Button>
+          <Button
+            asChild
+            variant="secondary"
+            size="secondary"
+            className="border-white/60 bg-transparent text-white hover:bg-white hover:text-green"
+          >
+            <a href={links.donate}>Donate now</a>
+          </Button>
+        </div>
+      </article>
 
-      <div className="relative mt-8 flex flex-col gap-5">
-        {/* 1. Friends of Love & Light — the priority, full width */}
-        <article className="glass-panel-strong flex flex-col rounded-panel p-[clamp(28px,3.3vw,48px)]">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <div className="flex items-center gap-3">
-              {/* The client asked for a logo on this panel and confirmed the
-                  main Love & Light logo is the one to use. A white chip keeps
-                  its green lettering legible against the green panel. */}
-              <span className="inline-flex shrink-0 rounded-xl bg-white px-2.5 py-1.5">
-                <Image
-                  src="/images/logo.png"
-                  alt=""
-                  width={355}
-                  height={192}
-                  className="h-8 w-auto nav:h-9"
-                />
-              </span>
-              <Eyebrow className="text-white/85">{friends.label}</Eyebrow>
-            </div>
-            <span className="rounded-full border border-white/35 bg-white/10 px-3 py-1.5 text-[13px] font-semibold text-white">
-              {friends.badge}
-            </span>
-          </div>
-          <h3 className="mt-5 max-w-[640px] text-[clamp(28px,2.5vw,36px)] leading-[1.1] font-medium tracking-[-0.03em] text-white">
-            {friends.heading}
-          </h3>
-          <div className="mt-6 grid gap-x-12 gap-y-6 nav:grid-cols-2">
-            <p className="text-base leading-[1.7] text-white/90">{friends.body}</p>
-            <ul className="flex flex-col gap-3">
-              {friends.perks.map((perk) => (
-                <li
-                  key={perk}
-                  className="flex items-center gap-3 text-[15px] font-medium text-white"
-                >
-                  <CheckIcon />
-                  {perk}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <p className="mt-6 max-w-[760px] text-[15px] leading-[1.6] text-white/85">
-            {friends.closing}
+      {/* 2. Partnership  3. Volunteer */}
+      <div className="grid grid-cols-1 gap-4 nav:grid-cols-2 nav:gap-5">
+        <article
+          id="partner"
+          data-reveal
+          className="glass flex scroll-mt-6 flex-col rounded-panel p-6 nav:p-[clamp(28px,3.3vw,48px)]"
+        >
+          <Eyebrow>Partnership</Eyebrow>
+          <H className="mt-4 text-[clamp(26px,2.5vw,36px)] leading-[1.1] font-medium tracking-[-0.03em] text-ink nav:mt-5">
+            {partner.heading}
+          </H>
+          <p className="mt-4 flex-1 text-[15px] leading-[1.7] text-body nav:mt-6 nav:text-base">
+            {partner.body}
           </p>
-          <div className="mt-9 flex flex-wrap gap-3">
-            <Button asChild variant="inverse" size="primary">
-              <a href={links.friend} target="_blank" rel="noopener">
-                {friends.cta}
-              </a>
-            </Button>
-            <Button
-              asChild
-              variant="secondary"
-              size="secondary"
-              className="border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white"
-            >
-              <a href={links.donate}>Donate now</a>
+          <div className="mt-7 nav:mt-9">
+            <Button asChild variant="secondary" size="secondary">
+              <a href={links.partner}>{partner.cta}</a>
             </Button>
           </div>
         </article>
 
-        {/* 2. Partnership  3. Volunteer */}
-        <div className="grid grid-cols-1 gap-5 nav:grid-cols-2">
-          <article className="glass flex flex-col rounded-panel p-[clamp(28px,3.3vw,48px)]">
-            <Eyebrow>Partnership</Eyebrow>
-            <h3 className="mt-5 text-[clamp(28px,2.5vw,36px)] leading-[1.1] font-medium tracking-[-0.03em] text-ink">
-              {partner.heading}
-            </h3>
-            <p className="mt-6 flex-1 text-base leading-[1.7] text-body">{partner.body}</p>
-            <div className="mt-9">
-              <Button asChild variant="secondary" size="secondary">
-                <a href={links.partner}>{partner.cta}</a>
-              </Button>
-            </div>
-          </article>
-
-          <article className="glass flex flex-col rounded-panel p-[clamp(28px,3.3vw,48px)]">
-            <Eyebrow>{volunteer.label}</Eyebrow>
-            <h3 className="mt-5 text-[clamp(28px,2.5vw,36px)] leading-[1.1] font-medium tracking-[-0.03em] text-ink">
-              {volunteer.heading}
-            </h3>
-            <p className="mt-6 flex-1 text-base leading-[1.7] text-body">{volunteer.body}</p>
-            <div className="mt-9">
-              <Button asChild variant="secondary" size="secondary">
-                <a href={links.volunteer} target="_blank" rel="noopener">
-                  {volunteer.cta}
-                </a>
-              </Button>
-            </div>
-          </article>
-        </div>
+        <article
+          id="volunteer"
+          data-reveal
+          style={{ "--i": 1 } as CSSProperties}
+          className="glass flex scroll-mt-6 flex-col rounded-panel p-6 nav:p-[clamp(28px,3.3vw,48px)]"
+        >
+          <Eyebrow>{volunteer.label}</Eyebrow>
+          <H className="mt-4 text-[clamp(26px,2.5vw,36px)] leading-[1.1] font-medium tracking-[-0.03em] text-ink nav:mt-5">
+            {volunteer.heading}
+          </H>
+          <p className="mt-4 flex-1 text-[15px] leading-[1.7] text-body nav:mt-6 nav:text-base">
+            {volunteer.body}
+          </p>
+          <div className="mt-7 nav:mt-9">
+            <Button asChild variant="secondary" size="secondary">
+              <a href={links.volunteer} target="_blank" rel="noopener">
+                {volunteer.cta}
+              </a>
+            </Button>
+          </div>
+        </article>
       </div>
-    </section>
+    </div>
   );
 }

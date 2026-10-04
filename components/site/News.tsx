@@ -2,24 +2,27 @@ import Image from "next/image";
 
 import { news } from "@/content/site";
 
-import { Eyebrow } from "./primitives";
+import { SectionHeader, sectionClass } from "./primitives";
 
 /**
- * News & Stories: reviews from people who have worked with the foundation.
- * A review may carry a photograph of its author, shown above the quote.
+ * Chapter 07 — in other people's words. The proof that comes right before
+ * the ask, which is the most persuasive place for it.
+ *
+ * Phones: a swipeable row, one review at a time. These are the two longest
+ * blocks of text on the page, so stacking them cost the most scrolling.
+ * Desktop: side by side.
  */
 export function News() {
   return (
-    <section id="news" aria-labelledby="news-heading" className="px-page py-[110px]">
-      <Eyebrow>{news.eyebrow}</Eyebrow>
-      <h2
-        id="news-heading"
-        className="mt-5 max-w-[900px] text-[clamp(36px,3.6vw,52px)] leading-[1.08] font-medium tracking-[-0.03em] text-ink"
-      >
-        {news.heading}
-      </h2>
+    <section id="news" aria-labelledby="news-heading" className={sectionClass}>
+      <SectionHeader id="news-heading" eyebrow={news.eyebrow} title={news.heading} />
 
-      <ul className="mt-10 grid grid-cols-1 gap-5 nav:mt-14 nav:grid-cols-2">
+      <ul
+        data-reveal
+        tabIndex={0}
+        aria-label="Reviews. On small screens, swipe sideways for more."
+        className="max-nav:swipe mt-8 outline-none focus-visible:ring-2 focus-visible:ring-green nav:mt-14 nav:grid nav:grid-cols-2 nav:gap-5"
+      >
         {news.reviews.map((review) => (
           <li key={review.name}>
             <figure className="glass flex h-full flex-col overflow-hidden rounded-panel">
@@ -29,13 +32,13 @@ export function News() {
                     src={review.photo.src}
                     alt={review.photo.alt}
                     fill
-                    sizes="(max-width: 900px) 92vw, 640px"
+                    sizes="(max-width: 900px) 84vw, 640px"
                     className="object-cover object-[50%_30%]"
                   />
                 </div>
               )}
-              <div className="flex flex-1 flex-col p-[clamp(24px,3vw,40px)]">
-                <blockquote className="flex flex-1 flex-col gap-4 text-[17px] leading-[1.65] text-ink">
+              <div className="flex flex-1 flex-col p-5 nav:p-[clamp(24px,3vw,40px)]">
+                <blockquote className="flex flex-1 flex-col gap-4 text-[15px] leading-[1.65] text-ink nav:text-[17px]">
                   {review.quote.map((paragraph, i) => (
                     <p key={paragraph.slice(0, 24)}>
                       {i === 0 && "“"}
@@ -44,7 +47,7 @@ export function News() {
                     </p>
                   ))}
                 </blockquote>
-                <figcaption className="mt-6 flex flex-col gap-1 border-t border-hairline pt-5">
+                <figcaption className="mt-5 flex flex-col gap-1 border-t border-hairline pt-4 nav:mt-6 nav:pt-5">
                   <span className="text-[15px] font-semibold text-ink">{review.name}</span>
                   <span className="text-[13px] text-body">{review.role}</span>
                 </figcaption>

@@ -51,7 +51,7 @@ export function Footer() {
           ))}
         </nav>
       </footer>
-      <p className="mx-page border-t border-hairline pt-6 pb-10 text-[13px] text-muted">
+      <p className="mx-page border-t border-hairline pt-6 pb-10 text-[13px] text-body">
         {footer.copyright}
       </p>
     </>

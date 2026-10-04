@@ -1,5 +1,6 @@
 import {
   events,
+  getInvolvedPage,
   impact,
   involved,
   leadership,
@@ -31,6 +32,7 @@ export function GET() {
     `Tagline: ${org.tagline}`,
     `Countries: ${org.countries.join(", ")}`,
     `Website: ${SITE_URL}/`,
+    `Ways to get involved: ${SITE_URL}${getInvolvedPage.path}`,
     `Social handle: ${org.handle}`,
     "",
     "## Our story",
@@ -84,7 +86,7 @@ export function GET() {
       `— ${r.name}, ${r.role}`,
       "",
     ]),
-    "## Get involved",
+    `## Get involved (${SITE_URL}${getInvolvedPage.path})`,
     "",
     `### ${involved.volunteer.label}`,
     "",

@@ -59,7 +59,23 @@ the page is broken in the meantime.
 
 ---
 
-## D. Optional
+## D. New wording to approve
+
+The site now reads as one story in eight chapters, with a new page,
+**Get involved**, for every way to help. Most chapter labels reuse the
+original design's wording. Two short headings are new; please confirm or
+suggest your own:
+
+- [ ] Chapter 4 heading: **"The people behind the work."**
+- [ ] Chapter 5 heading: **"Where we've been."** (above your past events)
+
+Also for your awareness: the four UN goal icons now show the English
+artwork as still images rather than animations. The animations cycled
+through six languages and were the heaviest part of the page on phones.
+
+---
+
+## E. Optional
 
 - [ ] **A Love in Action photograph.** For now it shows a photo from a
       community outreach. One from the monthly welfare project itself would be

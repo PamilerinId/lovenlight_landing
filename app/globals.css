@@ -57,15 +57,20 @@
   }
 }
 
-/* Standard glass surface: cards, event cards, Volunteer panel. */
+/* Standard glass surface: cards, event cards, Volunteer panel.
+   The blur only applies from the desktop breakpoint up. These cards sit on a
+   flat page colour, so on phones the blur changed nothing visible while
+   costing a GPU layer per card, which made scrolling heavier. */
 @utility glass {
   background: rgba(30, 122, 44, 0.06);
   border: 1px solid rgba(30, 122, 44, 0.18);
-  -webkit-backdrop-filter: blur(22px);
-  backdrop-filter: blur(22px);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.9),
     0 12px 40px rgba(17, 20, 17, 0.06);
+  @media (width >= 56.25rem) {
+    -webkit-backdrop-filter: blur(22px);
+    backdrop-filter: blur(22px);
+  }
 }
 
 /* Hero stat chips: same surface, slightly deeper drop shadow. These sit on
@@ -118,4 +123,158 @@
 @utility photo-fade {
   -webkit-mask-image: radial-gradient(circle, #000 55%, rgba(0, 0, 0, 0) 100%);
   mask-image: radial-gradient(circle, #000 55%, rgba(0, 0, 0, 0) 100%);
+}
+
+/* Soft yellow light inside an illustrated panel (see ArtPanel). */
+@utility art-glow {
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(255, 236, 60, 0.3) 0%,
+    rgba(255, 236, 60, 0) 46%
+  );
+}
+
+/* Off-screen sections skip layout and paint until the reader approaches
+   them. The browser remembers each section's real height once rendered, so
+   the scrollbar settles after the first pass. Cuts first-load work on phones. */
+@utility defer-render {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
+}
+/* While an in-page link is scrolling, lay every deferred section out so the
+   target's position is real (see useAccurateAnchors in Motion.tsx). */
+.anchoring .defer-render {
+  content-visibility: visible;
+}
+/* Sections given tabindex="-1" so a link can move focus to them. */
+[tabindex="-1"]:focus {
+  outline: none;
+}
+
+/* Horizontal swipe row, used on phones for People and Reviews so long
+   sections cost one card of height instead of a stack. The next card peeks
+   in at the edge so the row reads as swipeable without any controls. */
+@utility swipe {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  margin-inline: calc(var(--spacing-page) * -1);
+  padding-inline: var(--spacing-page);
+  scroll-padding-inline: var(--spacing-page);
+  & > * {
+    flex: 0 0 84%;
+    scroll-snap-align: start;
+  }
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* -------------------------------------------------------------------------
+   Motion
+   Light and one-directional: things settle into place as they arrive and
+   stay there. All of it is switched off for people who ask their device to
+   reduce motion.
+   ------------------------------------------------------------------------- */
+
+:root {
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Scroll reveals. Content is visible by default; it is only hidden once the
+   "js" class is on <html> (set by an inline script before first paint). So
+   without JavaScript, for crawlers, or if the script fails, nothing is ever
+   hidden. --i staggers siblings. */
+.js [data-reveal] {
+  opacity: 0;
+  translate: 0 24px;
+  transition:
+    opacity 0.8s var(--ease-out),
+    translate 0.9s var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 70ms);
+}
+.js [data-reveal].is-in {
+  opacity: 1;
+  translate: 0 0;
+}
+/* If the motion script never starts, show everything after four seconds. */
+.js:not(.motion-ready) [data-reveal] {
+  animation: reveal-failsafe 0s 4s forwards;
+}
+@keyframes reveal-failsafe {
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+/* Hero entrance, CSS only. Used on supporting elements, never on the
+   headline or opening paragraph, which are the page's largest paint and must
+   appear immediately. */
+.intro {
+  animation: intro-rise 0.9s var(--ease-out) both;
+  animation-delay: var(--delay, 0ms);
+}
+@keyframes intro-rise {
+  from {
+    opacity: 0;
+    translate: 0 16px;
+  }
+}
+
+/* Hero depth: as the page scrolls, the photo sinks and shrinks slightly while
+   the two stat chips rise at different speeds. Tied to scroll position by the
+   browser, with no JavaScript. Browsers without scroll-driven animation
+   simply show the still layout. */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .depth-photo,
+    .depth-chip-a,
+    .depth-chip-b {
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: scroll(root);
+      animation-range: 0 100vh;
+    }
+    .depth-photo {
+      animation-name: depth-photo;
+    }
+    .depth-chip-a {
+      animation-name: depth-chip-a;
+    }
+    .depth-chip-b {
+      animation-name: depth-chip-b;
+    }
+  }
+}
+@keyframes depth-photo {
+  to {
+    translate: 0 64px;
+    scale: 0.94;
+  }
+}
+@keyframes depth-chip-a {
+  to {
+    translate: 0 -40px;
+  }
+}
+@keyframes depth-chip-b {
+  to {
+    translate: 0 -84px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal] {
+    opacity: 1;
+    translate: none;
+    transition: none;
+    animation: none;
+  }
+  .intro {
+    animation: none;
+  }
 }

@@ -48,57 +48,24 @@ for (const [file, size, pad] of [
   outputs.push(file);
 }
 
-// UN SDG icons: animated GIFs at 1000x1000 (0.7–2.9 MB each) rendered at
-// 120px. Animated WebP at 240px (2x) keeps the motion at a fraction of the
-// size.
+// UN SDG icons. The client supplied animated GIFs (1000x1000, 0.7–2.9 MB
+// each) that cycle the label through the six UN languages. The site uses a
+// still of the first frame, which is the English artwork: the animations
+// weighed ~800 KB together, over a third of the mobile page, and showed
+// non-English labels most of the time. 240px is 2x the 120px render.
 //
 // The client's files for goals 2 and 17 are swapped (sdg-2.gif draws the
 // Partnerships icon, sdg-17.gif draws Zero Hunger), so outputs are keyed by
-// the goal the file actually depicts, not by its filename. Each animation
-// cycles the label through the six UN languages; that is by design.
-//
-// The Partnerships animation has 361 frames of dense motion, so every other
-// frame is dropped (delays summed) to keep it in the same weight class.
+// the goal the file actually depicts, not by its filename.
 const SDG_SIZE = 240;
 const SDG_SOURCES = { 1: "sdg-1.gif", 2: "sdg-17.gif", 4: "sdg-4.gif", 17: "sdg-2.gif" };
-const FRAME_STEP = { 17: 2 };
-
-async function sdgFrames(src, step) {
-  const meta = await sharp(src, { animated: true, limitInputPixels: false }).metadata();
-  const total = meta.pages ?? 1;
-  const delays = meta.delay ?? [];
-  const frames = [];
-  const delay = [];
-  for (let i = 0; i < total; i += step) {
-    frames.push(
-      await sharp(src, { page: i, pages: 1, limitInputPixels: false })
-        .resize(SDG_SIZE, SDG_SIZE)
-        .png()
-        .toBuffer()
-    );
-    let d = 0;
-    for (let j = i; j < Math.min(i + step, total); j++) d += delays[j] ?? 100;
-    delay.push(d);
-  }
-  return { frames, delay, loop: meta.loop ?? 0 };
-}
 
 for (const [goal, file] of Object.entries(SDG_SOURCES)) {
-  const n = Number(goal);
-  const src = `${SRC}/${file}`;
-  const out = `public/sdg/sdg-${n}.webp`;
-  const step = FRAME_STEP[n] ?? 1;
-  if (step === 1) {
-    await sharp(src, { animated: true, limitInputPixels: false })
-      .resize(SDG_SIZE, SDG_SIZE)
-      .webp({ quality: 70, effort: 6 })
-      .toFile(out);
-  } else {
-    const { frames, delay, loop } = await sdgFrames(src, step);
-    await sharp(frames, { join: { animated: true } })
-      .webp({ quality: 70, effort: 6, delay, loop })
-      .toFile(out);
-  }
+  const out = `public/sdg/sdg-${goal}.webp`;
+  await sharp(`${SRC}/${file}`, { page: 0, pages: 1, limitInputPixels: false })
+    .resize(SDG_SIZE, SDG_SIZE)
+    .webp({ quality: 82, effort: 6 })
+    .toFile(out);
   outputs.push(out);
 }
 
