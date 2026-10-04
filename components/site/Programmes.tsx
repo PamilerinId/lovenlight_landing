@@ -41,6 +41,7 @@ export function Programmes() {
                     alt={item.photo.alt}
                     fill
                     sizes="(max-width: 900px) 92px, 420px"
+                    style={{ objectPosition: item.photo.position }}
                     className="object-cover"
                   />
                 )}

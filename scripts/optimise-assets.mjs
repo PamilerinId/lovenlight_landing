@@ -69,15 +69,18 @@ for (const [goal, file] of Object.entries(SDG_SOURCES)) {
   outputs.push(out);
 }
 
-// Client photos (design/assets/photos, originals as supplied). next/image
+// Client photos (design/assets/photos, originals as supplied). When a photo
+// is REPLACED, give the new one a new file name: next/image caches its
+// optimised copies by URL, so reusing a name can serve the old picture. next/image
 // resizes and converts these on demand, so they only need to be big enough
 // for 2x of their largest render: the hero circle is ~600px, event photos
 // ~440px wide. The hero is a portrait shot cropped to its top square so both
 // faces sit inside the solid centre of the circular fade mask.
 const PHOTOS = [
-  // Hero: the full uncropped landscape photo (the old circular crop cut off
-  // the outer faces). Shown edge to edge at about 780px, so 1600 is 2x.
+  // Hero background: the three children, full frame, behind the headline.
   { src: "hero-students.jpg", out: "public/images/hero-students.jpg", width: 1600 },
+  // Hero foreground: the two volunteers, as the original circular portrait.
+  { src: "hero-james-sunmi.jpg", out: "public/images/hero-volunteers.jpg", square: "top", width: 1200 },
 
   // "What we do" cards. Each is at most ~470px wide on screen. Food Security
   // uses the food-outreach photograph generated in the Events block below.
@@ -85,7 +88,7 @@ const PHOTOS = [
   { src: "volunteer-school-hall.jpg", out: "public/images/programme-youth.jpg", width: 1000 },
   { src: "programme-women.jpg", out: "public/images/programme-women.jpg", width: 1000 },
   { src: "programme-community.jpg", out: "public/images/programme-community.jpg", width: 1000 },
-  { src: "programme-csr.jpg", out: "public/images/programme-csr.jpg", width: 1000 },
+  { src: "programme-csr-transcend.jpg", out: "public/images/programme-csr-transcend.jpg", width: 1000 },
 
   // People shown in "Our story".
   { src: "volunteer-pulpit.jpg", out: "public/images/people-founder.jpg", width: 900 },
@@ -98,7 +101,7 @@ const PHOTOS = [
   // Security card.
   { src: "event-food-outreach.jpg", out: "public/images/event-food-outreach.jpg", width: 1200 },
   { src: "event-global-skills.jpg", out: "public/images/event-global-skills.jpg", width: 1200 },
-  { src: "event-love-in-action.jpg", out: "public/images/event-love-in-action.jpg", width: 1000 },
+  { src: "event-love-in-action-cake.jpg", out: "public/images/event-love-in-action-cake.jpg", width: 1000 },
 
   // Events: past. One photograph per grouped card.
   { src: "past-transcend.jpg", out: "public/images/past-transcend.jpg", width: 1000 },

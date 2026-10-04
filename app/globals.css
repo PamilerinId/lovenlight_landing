@@ -119,6 +119,12 @@
   pointer-events: none;
 }
 
+/* Circular portrait whose edges dissolve into whatever is behind it. */
+@utility photo-fade {
+  -webkit-mask-image: radial-gradient(circle, #000 55%, rgba(0, 0, 0, 0) 100%);
+  mask-image: radial-gradient(circle, #000 55%, rgba(0, 0, 0, 0) 100%);
+}
+
 /* Soft yellow light inside an illustrated panel (see ArtPanel). */
 @utility art-glow {
   background: radial-gradient(

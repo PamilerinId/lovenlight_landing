@@ -8,7 +8,12 @@
  * illustrated panel (see ArtPanel), never as an empty box.
  */
 
-export type Photo = { src: string; alt: string };
+export type Photo = {
+  src: string;
+  alt: string;
+  /** CSS object-position, for photos whose subjects sit off-centre. */
+  position?: string;
+};
 
 /** A named person shown in a photo; rendered as a caption on the tile. */
 export type Person = { name: string; role: string };
@@ -91,9 +96,15 @@ export const hero = {
     volunteer: "Become a Volunteer",
     partner: "Partner with us →",
   },
+  /**
+   * Behind the headline, dimmed by a scrim: three children at an outreach.
+   * Decorative at that strength, so it carries no alt text.
+   */
+  background: { src: "/images/hero-students.jpg" },
+  /** In front, on the right: the two volunteers. */
   photo: {
-    src: "/images/hero-students.jpg",
-    alt: "Three children looking into the camera at a Love & Light Foundation community outreach",
+    src: "/images/hero-volunteers.jpg",
+    alt: "James and Sunmi, two Love & Light Foundation volunteers, smiling and pointing at the foundation logo on their T-shirts",
   } as Photo | null,
   chips: [
     { value: "5,000+", label: "families reached" },
@@ -299,8 +310,10 @@ export const programmes = {
       blurb:
         "We help you execute your CSR projects for your company, landmark event, birthday, or anniversary.",
       photo: {
-        src: "/images/programme-csr.jpg",
-        alt: "Attendees filling a hall at a conference session",
+        src: "/images/programme-csr-transcend.jpg",
+        alt: "Two men sharing a warm moment on stage at the Transcend Ladies Conference, one holding a microphone and the other receiving a gift bag",
+        // Both faces sit in the left two-thirds; centre would clip one.
+        position: "24% 50%",
       },
       // The client asked for this to use the same link as Partner With Us.
       cta: { label: "Partner with us →", href: links.partner },
@@ -408,7 +421,7 @@ export const events = {
         dateTime: null,
         blurb: "Our monthly welfare relief project (make a random person smile).",
         photo: {
-          src: "/images/event-love-in-action.jpg",
+          src: "/images/event-love-in-action-cake.jpg",
           alt: "Pupils in orange and blue school uniforms cheering with their arms raised around a cake at a Love & Light Foundation outreach",
         },
         // Same link as Partner With Us, as the client asked.

@@ -29,7 +29,7 @@ export function Reach() {
               key={item.label}
               data-reveal
               style={{ "--i": i % 3 } as CSSProperties}
-              className="flex flex-col gap-1.5 border-b border-hairline py-6 pr-3 nav:gap-2.5 nav:py-11 nav:pr-8"
+              className="flex flex-col gap-1.5 border-b border-hairline py-6 pr-3 nav:gap-2.5 nav:py-11 nav:pr-8 [&:nth-last-child(-n+2)]:border-b-0 nav:[&:nth-last-child(-n+3)]:border-b-0"
             >
               <span
                 className="text-[34px] leading-none font-medium tracking-[-0.04em] text-ink tabular-nums nav:text-[clamp(48px,5vw,72px)]"
