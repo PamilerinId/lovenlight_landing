@@ -1,15 +1,24 @@
 import type { Metadata, Viewport } from "next";
-import { Manrope } from "next/font/google";
+import localFont from "next/font/local";
 
 import { jsonLdString } from "@/lib/seo/jsonld";
 import { OG_IMAGE_PATH, SITE_DESCRIPTION, SITE_NAME, SITE_TITLE, SITE_URL } from "@/lib/seo/config";
 
 import "./globals.css";
 
-// The one typeface on the site, in the three weights the design uses.
-const manrope = Manrope({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
+// The one typeface on the site. Self-hosted rather than next/font/google:
+// that loader downloads the font from Google at build time, and the response
+// Google serves Vercel's build machines broke the Turbopack build there while
+// building fine locally. A committed file makes the build deterministic.
+//
+// Manrope is a variable font, so one file carries every weight the design
+// uses (400, 500, 600). Only the basic Latin set is shipped: the extended set
+// adds accented letters the site does not use, and neither set contains ₦ or
+// →, which fall back to the system font exactly as they did before.
+const manrope = localFont({
+  src: "./fonts/manrope-latin.woff2",
+  weight: "200 800",
+  style: "normal",
   display: "swap",
   variable: "--font-manrope",
 });
