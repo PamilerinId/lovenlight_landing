@@ -90,7 +90,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body>
         <JsonLd data={orgGraph()} />
-        <div className="relative mx-auto w-full max-w-[1440px] overflow-hidden">
+        <div className="relative w-full overflow-x-clip">
           <a
             href="#main"
             className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:rounded-full focus:bg-ground focus:px-4 focus:py-2 focus:text-green focus:ring-2 focus:ring-green"

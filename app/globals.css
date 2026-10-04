@@ -19,8 +19,10 @@
   --font-*: initial;
   --font-sans: var(--font-manrope), system-ui, sans-serif;
 
-  /* px-page / mx-page: horizontal page padding */
-  --spacing-page: clamp(20px, 5.5vw, 80px);
+  /* px-page / mx-page: horizontal page padding. Fluid up to 80px, then it
+     grows with the screen so content never exceeds 1280px (1440px minus the
+     padding) while full-bleed pieces like the hero can span the whole width. */
+  --spacing-page: max(clamp(20px, 5.5vw, 80px), calc((100vw - 1440px) / 2 + 80px));
 
   /* nav: / max-nav: — 900px, in rem so Tailwind can sort it with its defaults */
   --breakpoint-nav: 56.25rem;
@@ -117,6 +119,22 @@
     rgba(255, 236, 60, 0) 62%
   );
   pointer-events: none;
+}
+
+/* On the home page the navigation floats over the full-screen hero, with white
+   links. Pure CSS: it applies only while the page contains the hero marker, so
+   every other page keeps the normal bar on the cream background. */
+body:has([data-hero-dark]) .site-nav {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  z-index: 20;
+}
+body:has([data-hero-dark]) .site-nav .nav-link {
+  color: #fff;
+}
+body:has([data-hero-dark]) .site-nav .nav-link:hover {
+  color: rgba(255, 255, 255, 0.75);
 }
 
 /* Circular portrait whose edges dissolve into whatever is behind it. */

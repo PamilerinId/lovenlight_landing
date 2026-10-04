@@ -16,12 +16,13 @@ const onDark = "border-white/60 bg-transparent text-white hover:bg-white hover:t
 const tight = "px-4 nav:px-7";
 
 /**
- * The cover of the story: a dark card with the children's photograph behind
- * the headline and the two volunteers in front, on the right.
+ * The cover of the story: a full-screen photograph of the children behind the
+ * headline, with the two volunteers in front, on the right, and the navigation
+ * floating over the top.
  *
  * The photograph is dimmed by a flat dark layer so white text stays readable
  * over its brightest areas (a flat layer rather than a gradient, which the
- * brand rules rule out). The card is dark before the image arrives, so the
+ * brand rules rule out). The section is dark before the image arrives, so the
  * text is legible from the first paint.
  *
  * The headline and opening paragraph render immediately with no animation,
@@ -31,25 +32,31 @@ const tight = "px-4 nav:px-7";
  */
 export function Hero() {
   return (
-    <section aria-labelledby="hero-heading" className="px-page pt-2 pb-16 nav:pt-4 nav:pb-[110px]">
-      <div className="relative isolate overflow-hidden rounded-[28px] bg-ink nav:rounded-[40px]">
-        <Image
-          src={hero.background.src}
-          alt=""
-          fill
-          sizes="(max-width: 900px) 100vw, 1280px"
-          loading="eager"
-          fetchPriority="high"
-          // Anchored low and scaled up from the bottom, which trims about a
-          // fifth off the top and so crops out the "Made to Love" watermark
-          // in the photograph's top-left corner.
-          style={{ objectPosition: "50% 100%" }}
-          className="-z-20 origin-bottom scale-[1.14] object-cover"
-        />
-        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-ink/70" />
-        <Glow className="-z-10 top-[-160px] right-[-120px]" />
+    <section
+      aria-labelledby="hero-heading"
+      // Marker the navigation looks for (see globals.css) to float over this
+      // section with white links.
+      data-hero-dark
+      className="relative isolate flex min-h-[100svh] items-center overflow-hidden bg-ink"
+    >
+      <Image
+        src={hero.background.src}
+        alt=""
+        fill
+        sizes="100vw"
+        loading="eager"
+        fetchPriority="high"
+        // Anchored low and scaled up from the bottom, which trims about a
+        // fifth off the top and so crops out the "Made to Love" watermark
+        // in the photograph's top-left corner.
+        style={{ objectPosition: "50% 100%" }}
+        className="-z-20 origin-bottom scale-[1.14] object-cover"
+      />
+      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-ink/70" />
+      <Glow className="-z-10 top-[-160px] right-[-120px]" />
 
-        <div className="relative grid grid-cols-1 items-center gap-10 p-6 pt-10 pb-9 nav:grid-cols-[1.1fr_0.9fr] nav:gap-10 nav:p-14 nav:pr-10">
+      <div className="relative w-full px-page pt-28 pb-14 nav:pt-32 nav:pb-20">
+        <div className="grid grid-cols-1 items-center gap-10 nav:grid-cols-[1.1fr_0.9fr] nav:gap-10">
           <div>
             <p className="intro eyebrow inline-flex items-center gap-2 text-white/90">
               <span aria-hidden="true" className="inline-block size-[7px] rounded-full bg-white" />
@@ -113,7 +120,7 @@ export function Hero() {
                 className="rounded-full"
               />
             </div>
-            <div className="depth-chip-a absolute top-[14%] -left-6 hidden nav:block">
+            <div className="depth-chip-a absolute bottom-[3%] -left-[17%] hidden nav:block">
               <div
                 className="intro glass-chip flex flex-col gap-0.5 rounded-chip px-[22px] py-4"
                 style={delay(450)}
@@ -124,7 +131,7 @@ export function Hero() {
                 <span className="text-[13px] text-body">{hero.chips[0].label}</span>
               </div>
             </div>
-            <div className="depth-chip-b absolute right-0 bottom-[10%] hidden nav:block">
+            <div className="depth-chip-b absolute top-[6%] -right-[4%] hidden nav:block">
               <div
                 className="intro glass-chip flex flex-col gap-0.5 rounded-chip px-[22px] py-4"
                 style={delay(600)}

@@ -12,10 +12,10 @@ import { nav, org } from "@/content/site";
  */
 export function Nav() {
   return (
-    <header>
+    <header className="site-nav">
       <nav
         aria-label="Primary"
-        className="relative z-[2] flex items-center justify-between gap-4 px-page py-5 nav:py-7"
+        className="relative z-20 flex items-center justify-between gap-4 px-page py-5 nav:py-7"
       >
         <Link href="/" className="flex items-center" aria-label={`${org.name} home`}>
           <Image
@@ -30,7 +30,7 @@ export function Nav() {
         <ul className="hidden items-center gap-9 text-[15px] font-medium nav:flex">
           {nav.items.map((item) => (
             <li key={item.href}>
-              <a href={item.href} className="text-ink hover:text-green">
+              <a href={item.href} className="nav-link text-ink hover:text-green">
                 {item.label}
               </a>
             </li>
