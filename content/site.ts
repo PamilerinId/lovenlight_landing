@@ -130,7 +130,7 @@ export const story = {
   heading:
     "We believe where you're born should never determine how far you can go.",
   paragraphs: [
-    "Every day, millions of people are held back not by a lack of potential, but by a lack of opportunity. A child goes to bed hungry instead of learning. A young person with brilliant ideas never gets the chance to develop them. A woman with dreams of financial independence lacks the support to begin. We believe that can change.",
+    "Every day, millions of people are held back not by lack of potential, but by lack of opportunity. A child goes to bed hungry instead of learning. A young person with brilliant ideas never gets the chance to develop them. A woman with dreams of financial independence lacks the support to begin. We believe that can change.",
     "Love & Light Foundation exists to turn compassion into action by providing food where there is hunger, creating opportunities where there are barriers, and empowering individuals and communities to build a better future. Because lasting change doesn't happen through charity alone. It happens when people are given the opportunity to thrive.",
   ],
   closing:
@@ -504,6 +504,13 @@ const reviews: ReadonlyArray<Review> = [
   {
     name: "Agness A. Mnzava",
     role: "Tanzanian Delegate, Grant and Research Lead",
+    photo: {
+      src: "/images/review-agness.jpg",
+      alt: "Portrait of Agness A. Mnzava",
+      // Her head sits near the top of the frame; anchor there so the
+      // landscape crop does not clip it.
+      position: "50% 0%",
+    },
     quote: [
       "My journey with Love & Light Foundation has been deeply meaningful to me. Winning the Love & Light Essay Competition gave me the confidence to see that my ideas and voice could genuinely matter. Through the Pad Bank Project, I also had the opportunity to witness how a simple initiative can bring dignity, support and hope to girls in ways that feel very real and personal.",
       "Love & Light has helped me grow not only as a young professional, but also as someone who wants to use her voice and skills to serve others. I am grateful for the people, experiences and opportunities that have reminded me that meaningful change often begins with simply caring enough to act.",

@@ -33,7 +33,8 @@ export function News() {
                     alt={review.photo.alt}
                     fill
                     sizes="(max-width: 900px) 84vw, 640px"
-                    className="object-cover object-[50%_30%]"
+                    style={{ objectPosition: review.photo.position ?? "50% 30%" }}
+                    className="object-cover"
                   />
                 </div>
               )}

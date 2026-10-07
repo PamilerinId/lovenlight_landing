@@ -109,6 +109,7 @@ const PHOTOS = [
   { src: "past-school-outreach.jpg", out: "public/images/past-school-outreach.jpg", width: 1000 },
 
   // News & Stories: shown beside the review from the person it pictures.
+  { src: "review-agness.jpg", out: "public/images/review-agness.jpg", width: 1200 },
   { src: "review-toluwalade.jpg", out: "public/images/review-toluwalade.jpg", width: 1200 },
 ];
 
